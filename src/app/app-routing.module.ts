@@ -9,8 +9,21 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 import { LoginComponent } from './modules/auth/login/login.component';
+import { PagesComponent } from './pages/pages.component';
 
 export const routes: Routes = [
+  {
+    path: 'user',
+    canActivate: [],
+    component: PagesComponent,
+    data: {
+        roles: [],
+    },
+    loadChildren: () =>
+        import('./modules/user/user.module').then(
+            (m) => m.UserModule
+        ),
+  },
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module')
