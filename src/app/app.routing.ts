@@ -22,7 +22,37 @@ export const appRoutes: Route[] = [
         },
         loadChildren: () =>
             import('app/modules/admin/home/home.module').then(
-                (m) => m.HomeModule
+                m => m.HomeModule
+            ),
+    },
+    {
+        path: 'user',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/user/user.module').then(
+                m => m.UserModule
+            ),
+    },
+    {
+        path: 'driver',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/driver/driver.module').then(
+                m => m.DriverModule
             ),
     }
 ];

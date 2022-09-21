@@ -10,6 +10,22 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/home',
         roles: [],
     },
+    {
+        id: 'usuarios',
+        title: 'Usuarios',
+        type: 'basic',
+        icon: 'heroicons_outline:user',
+        link: '/user',
+        roles: [],
+    },
+    {
+        id: 'Conductores',
+        title: 'Conductores',
+        type: 'basic',
+        icon: 'heroicons_outline:user-circle',
+        link: '/driver',
+        roles: [],
+    },
 ];
 
 export const compactNavigation: FuseNavigationItem[] = [];
