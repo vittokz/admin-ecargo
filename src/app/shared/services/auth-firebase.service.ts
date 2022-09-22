@@ -14,19 +14,15 @@ export class AuthFirebaseService {
     private http: HttpClient,
   ) { }
 
-  SignIn(email: string, password: string) {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  signIn(email: string, password: string): any {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log("ingreso", result);
-        
+        console.log('ingreso', result);
       })
       .catch((error) => {
         window.alert(error.message);
       });
-  }
-
-  public getDrivers(){
-    return this.afs.collection('drivers').snapshotChanges();
   }
 }
