@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
     imports: [
         CommonModule,
@@ -20,7 +21,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatFormFieldModule,
         MatInputModule,
         MatPaginatorModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSnackBarModule
     ],
     exports: [
         CommonModule,
@@ -33,6 +35,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatPaginatorModule,
         MatInputModule,
         MatButtonModule,
+        MatSnackBarModule
     ],
     declarations: [],
 })

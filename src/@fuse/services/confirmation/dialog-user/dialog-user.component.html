@@ -14,7 +14,7 @@
     </ng-container>
 
     <!-- Content -->
-    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-8 pb-6 sm:pb-8">
+    <div style="color: white" class="flex bg-primary-500 flex-col sm:flex-row flex-auto items-center sm:items-start p-8 pb-6 sm:pb-8">
 
         <!-- Icon -->
         <ng-container *ngIf="data.icon.show">
@@ -56,6 +56,68 @@
 
     </div>
 
+     <!--FORMULARIO EDICION DE USUARIO-->
+     <form [formGroup]="formEditar" class="flex flex-col p-4 bg-card rounded-2xl shadow overflow-hidden">
+        <strong class="mb-3">Todos los campos son requeridos</strong>
+        <div class="flex">
+            <mat-form-field
+               
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="nombres"
+                    matInput
+                    [placeholder]="'Nombres'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+           
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="apellidos"
+                    matInput
+                    [placeholder]="'Apellidos'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+         
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="email"
+                    matInput
+                    [placeholder]="'Email'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+           
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="movil"
+                 type="text"
+                 maxlength="13"
+                 minlength="13"
+                    matInput
+                    [placeholder]="'Movil'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+            [ngClass]="formFieldHelpers"
+            class="flex-auto gt-xs:pl-3">
+            <mat-select formControlName="estado" [(value)]="estadoInicialUsuario" [placeholder]="'Estado usuario'">
+                <mat-option value="true">true</mat-option>
+                <mat-option value="false">false</mat-option>
+            </mat-select>
+        </mat-form-field>
+        </div>
+    </form>
+
     <!-- Actions -->
     <ng-container *ngIf="data.actions.confirm.show || data.actions.cancel.show">
         <div class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10">
@@ -72,6 +134,8 @@
             <!-- Confirm -->
             <ng-container *ngIf="data.actions.confirm.show">
                 <button
+                    (click)="editarUsuarios()"
+                    [disabled]="!formEditar.valid"
                     mat-flat-button
                     [color]="data.actions.confirm.color"
                     [matDialogClose]="'confirmed'">
@@ -81,5 +145,7 @@
 
         </div>
     </ng-container>
+
+   
 
 </div>

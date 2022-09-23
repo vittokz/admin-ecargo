@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-list-user',
@@ -17,6 +18,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 })
 export class ListUserComponent implements OnInit, AfterViewInit {
     public infoUsers: IUser[] = [];
+    message: string = 'Usuario actualizado correctamente.';
     configForm: UntypedFormGroup;
     displayedColumns: string[] = [
         'names',
@@ -33,7 +35,8 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     constructor(
         private usersFirebase: UsersFirebaseService,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        private _snackBar: MatSnackBar
     ) {
         this.configForm = this._formBuilder.group({
             title: 'EDITAR INFORMACIÓN DE USUARIO',
@@ -60,6 +63,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     }
     cargarUsers(): void {
         this.usersFirebase.getUsers().subscribe((resp) => {
+            this.infoUsers = [];
             resp.forEach((user, index) => {
                 this.infoUsers.push({
                     no: index + 1,
@@ -69,6 +73,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                         ['creation_date'].toDate()
                         .toLocaleDateString(),
                     //enable: user.payload.doc.data()['enable'],
+                    enable: user.payload.doc.data()['enable'],
                     names: user.payload.doc.data()['profile_info']['names'],
                     last_names:
                         user.payload.doc.data()['profile_info']['last_names'],
@@ -77,8 +82,8 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                     wallet: user.payload.doc.data()['wallet'],
                 });
             });
+            this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.infoUsers);
-            // console.log(this.infoUsers);
         });
     }
 
@@ -86,11 +91,18 @@ export class ListUserComponent implements OnInit, AfterViewInit {
 
     editar(user): void {
         const dialogRef = this._fuseConfirmationService.open(
-          user,'editar-user'
+            user,
+            'editar-user'
         );
         dialogRef.afterClosed().subscribe((result) => {
-            console.log(result);
+            this._snackBar.open(this.message, '', {
+                duration: 2000,
+                panelClass: ['mat-toolbar', 'mat-primary'],
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+            });
         });
+        this.cargarUsers();
     }
 
     historial(user): void {
