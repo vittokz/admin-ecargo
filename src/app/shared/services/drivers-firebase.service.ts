@@ -12,6 +12,7 @@ export class DriversFirebaseService {
     return this.afs.collection('drivers').snapshotChanges();
   }
   public updateDrivers(documentId: string, data: any){
+    console.log(data);    
     return this.afs.collection('drivers').doc(documentId).set(data);
   }
 }

@@ -1,14 +1,6 @@
 export interface Drivers{
     creation_date: Date,
-    profile_info: {
-        names: string,
-        last_names: string,
-        phone: string,
-        emg_phone1: string,
-        emg_phone2: string,
-        email: string,
-        photo_url: string,
-    },
+    profile_info: Profile,
     notification_info: {notification_id: string, topic: string},
     documents: any[],
     vehicle_info: any[],
@@ -25,4 +17,14 @@ export interface Drivers{
     busy: boolean,
     status: boolean,
     enable: boolean
+}
+
+export interface Profile {
+    names: string,
+    last_names: string,
+    phone: string,
+    emg_phone1: string,
+    emg_phone2: string,
+    email: string,
+    photo_url: string,
 }
