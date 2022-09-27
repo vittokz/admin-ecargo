@@ -26,7 +26,5 @@ export class AuthFirebaseService {
       });
   }
 
-  public getDrivers(){
-    return this.afs.collection('drivers').snapshotChanges();
-  }
+ 
 }

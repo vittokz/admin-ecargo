@@ -1,15 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { Drivers } from 'app/shared/model/driver.model';
+import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list-drivers',
   templateUrl: './list-drivers.component.html',
-  styleUrls: ['./list-drivers.component.scss']
+  styleUrls: ['./list-drivers.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class ListDriversComponent implements OnInit {
+export class ListDriversComponent implements AfterViewInit {
+  formPersonal: FormGroup
+  infoDrivers = [];
+  dataDrivers = [];  
+  displayedColumns: string[] = ['no', 'id', 'create', 'name', 'email', 'phone', 'avalible', 'action']; 
+  dataSource = new MatTableDataSource<Drivers>();    
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];  
 
-  constructor() { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngOnInit(): void {
+  disableinput = true;
+  
+  constructor(private drivers: DriversFirebaseService, private formBuilder: FormBuilder) {
+    this.getDrivers(); 
+   
   }
 
+  initForm(){
+    this.formPersonal = this.formBuilder.group({
+      names:      ['', [Validators.required]],
+      last_names: ['', [Validators.required]],
+      phone:      ['', [Validators.required]],
+      emg_phone1: ['', [Validators.required]],
+      emg_phone2: ['', [Validators.required]],
+      email:      ['', [Validators.required]],
+    })
+  }
+  
+  getDrivers(){      
+    this.initForm();
+    const data = this.drivers.getDrivers().subscribe((resp)=>{   
+      
+      resp.forEach((driver, index)=>{  
+        this.dataDrivers.push(driver.payload.doc.data());                     
+        this.infoDrivers.push({
+          no: index+1,
+          id: driver.payload.doc.id,          
+          create: (driver.payload.doc.data()['creation_date']).toDate().toLocaleDateString(),
+          name: driver.payload.doc.data()['profile_info']['names'] +' '+ driver.payload.doc.data()['profile_info']['last_names'],
+          email: driver.payload.doc.data()['profile_info']['email'],
+          phone: driver.payload.doc.data()['profile_info']['phone'],
+          avalible: driver.payload.doc.data()['busy']
+        });
+        // this.infoDrivers.push(driver.payload.doc.data())
+      })
+      console.log(this.dataDrivers);
+      console.log(this.infoDrivers);
+      this.dataSource = new MatTableDataSource<Drivers>(this.infoDrivers);
+    });
+  }
+  
+  updateDrivers(){
+    console.log(this.formPersonal.value);
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 }

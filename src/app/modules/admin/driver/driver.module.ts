@@ -3,6 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ListDriversComponent } from './list-drivers/list-drivers.component';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatRippleModule } from '@angular/material/core';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 const userRoutes: Route[] = [
   {
@@ -19,7 +26,14 @@ const userRoutes: Route[] = [
   imports: [
     RouterModule.forChild(userRoutes),
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatRippleModule,
+    MatTabsModule
+    
   ]
 })
 export class DriverModule { }
