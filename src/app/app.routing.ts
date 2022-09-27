@@ -54,5 +54,20 @@ export const appRoutes: Route[] = [
             import('app/modules/admin/driver/driver.module').then(
                 m => m.DriverModule
             ),
+    },
+    {
+        path: 'services',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/services/services.module').then(
+                m => m.ServicesModule
+            ),
     }
 ];

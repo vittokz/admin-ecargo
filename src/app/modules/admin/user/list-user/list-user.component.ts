@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-list-user',
@@ -19,6 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ListUserComponent implements OnInit, AfterViewInit {
     public infoUsers: IUser[] = [];
     message: string = 'Usuario actualizado correctamente.';
+    messageCrearUsuario: string = 'Usuario creado correctamente.';
+    messageEliminarUsuario: string = 'Usuario eliminado correctamente.';
     configForm: UntypedFormGroup;
     displayedColumns: string[] = [
         'names',
@@ -27,6 +30,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
         'email',
         'phone',
         'wallet',
+        'estado',
         'acciones',
     ];
     dataSource: MatTableDataSource<IUser>;
@@ -36,7 +40,8 @@ export class ListUserComponent implements OnInit, AfterViewInit {
         private usersFirebase: UsersFirebaseService,
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: UntypedFormBuilder,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private router: Router
     ) {
         this.configForm = this._formBuilder.group({
             title: 'EDITAR INFORMACIÓN DE USUARIO',
@@ -61,6 +66,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
         });
         this.cargarUsers();
     }
+    //Cargar usuarios de la base de datos
     cargarUsers(): void {
         this.usersFirebase.getUsers().subscribe((resp) => {
             this.infoUsers = [];
@@ -88,25 +94,45 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {}
-
+    //Editar un usuario
     editar(user): void {
         const dialogRef = this._fuseConfirmationService.open(
             user,
             'editar-user'
         );
         dialogRef.afterClosed().subscribe((result) => {
-            this._snackBar.open(this.message, '', {
-                duration: 2000,
-                panelClass: ['mat-toolbar', 'mat-primary'],
-                horizontalPosition: 'right',
-                verticalPosition: 'bottom',
-            });
+            if(result==='confirmed'){
+                this._snackBar.open(this.message, '', {
+                    duration: 2000,
+                    panelClass: ['mat-toolbar', 'mat-primary'],
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                });
+            }
+        });
+        this.cargarUsers();
+    }
+    //Eliminar un usuario
+    eliminar(user): void {
+        const dialogRef = this._fuseConfirmationService.open(
+            user,
+            'eliminar-user'
+        );
+        dialogRef.afterClosed().subscribe((result) => {
+            if(result==='confirmed'){
+                this._snackBar.open(this.messageEliminarUsuario, '', {
+                    duration: 2000,
+                    panelClass: ['mat-toolbar', 'mat-primary'],
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                });
+            }
         });
         this.cargarUsers();
     }
 
     historial(user): void {
-        console.log(user);
+        this.router.navigate(['/services'], { queryParams: { id: user['id'] } });
     }
 
     ngAfterViewInit(): void {
@@ -122,5 +148,23 @@ export class ListUserComponent implements OnInit, AfterViewInit {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
+    }
+    //Agregar usuario
+    agregarUsuario(): void {
+        let user;
+        const dialogRef = this._fuseConfirmationService.open(
+            user,
+            'agregar-user'
+        );
+        dialogRef.afterClosed().subscribe((result) => {
+            if(result==='confirmed'){
+                this._snackBar.open(this.messageCrearUsuario, '', {
+                    duration: 2000,
+                    panelClass: ['mat-toolbar', 'mat-primary'],
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                });
+            }
+        });
     }
 }

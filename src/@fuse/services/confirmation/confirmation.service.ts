@@ -23,6 +23,10 @@ export class FuseConfirmationService {
         // Merge the user config with the default config
         if (tipoAccion === 'editar-user') {
             this.crearConfiguracionDialog('Editar Usuario');
+        } else if (tipoAccion === 'agregar-user') {
+            this.crearConfiguracionDialog('Agregar Usuario');
+        } else if (tipoAccion === 'eliminar-user') {
+            this.crearConfiguracionDialog('Eliminar Usuario');
         }
         const userConfig = merge({}, this._defaultConfig, config);
 
@@ -36,12 +40,17 @@ export class FuseConfirmationService {
     }
     crearConfiguracionDialog(title: string): void {
         this._defaultConfig = {
-            title:title,
+            title: title,
             message: '',
             icon: {
                 show: true,
-                name: 'heroicons_outline:pencil',
-                color: 'warn',
+                name:
+                    title === 'Editar Usuario'
+                        ? 'heroicons_outline:pencil'
+                        : title === 'Agregar Usuario'
+                        ? 'heroicons_outline:user-add'
+                        : 'heroicons_outline:x',
+                color: title !== 'Editar Usuario' ? 'warn' : 'success',
             },
             actions: {
                 confirm: {

@@ -10,7 +10,12 @@
 
                 <!--Tabla de usuarios-->
                 <div class="content-users__botton">
-                    <button class="ml-4 mt-4" mat-flat-button color="primary">
+                    <button
+                        (click)="agregarUsuario()"
+                        class="ml-4 mt-4"
+                        mat-flat-button
+                        color="primary"
+                    >
                         <mat-icon
                             [svgIcon]="'heroicons_outline:plus'"
                         ></mat-icon>
@@ -117,6 +122,25 @@
                                 }}
                             </td>
                         </ng-container>
+                        <ng-container matColumnDef="estado">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                            >
+                                ESTADO
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <div *ngIf="row.enable===true" >
+                                    <mat-icon class="icon-stylo-check" matTooltip="Activo"
+                                    matTooltipPosition="left" svgIcon="check"></mat-icon>
+                                </div>
+                                <div *ngIf="row.enable!==true" >
+                                    <mat-icon class="icon-stylo-inactivo" matTooltip="Inactivo"
+                                    matTooltipPosition="left" svgIcon="close"></mat-icon>
+                                </div>
+                            </td>
+                        </ng-container>
 
                         <ng-container matColumnDef="acciones">
                             <th
@@ -127,20 +151,42 @@
                                 ACCIONES
                             </th>
                             <td mat-cell *matCellDef="let row">
-                                <button  matTooltip="Editar"
-                                matTooltipPosition="left" mat-raised-button class="btn-stylo-editar"  (click)="editar(row)">
-                                    <mat-icon  class="icon-stylo-editar"
-                                    [svgIcon]="'heroicons_outline:pencil'"
-                                ></mat-icon>
-                                   
-                                  </button>
-                                  <button matTooltip="Historial"
-                                  matTooltipPosition="right" mat-raised-button class="btn-stylo-historial" (click)="historial(row)">
-                                    <mat-icon class="icon-stylo-historial"
-                                    [svgIcon]="'heroicons_outline:search'"
-                                ></mat-icon>
-                                   
-                                  </button>
+                                <button
+                                    matTooltip="Editar"
+                                    matTooltipPosition="left"
+                                    mat-raised-button
+                                    class="btn-stylo-editar"
+                                    (click)="editar(row)"
+                                >
+                                    <mat-icon
+                                        class="icon-stylo-editar"
+                                        [svgIcon]="'heroicons_outline:pencil'"
+                                    ></mat-icon>
+                                </button>
+                                <button
+                                    matTooltip="Eliminar"
+                                    matTooltipPosition="left"
+                                    mat-raised-button
+                                    class="btn-stylo-eliminar"
+                                    (click)="eliminar(row)"
+                                >
+                                    <mat-icon
+                                        class="icon-stylo-eliminar"
+                                        [svgIcon]="'heroicons_outline:x'"
+                                    ></mat-icon>
+                                </button>
+                                <button
+                                    matTooltip="Historial"
+                                    matTooltipPosition="right"
+                                    mat-raised-button
+                                    class="btn-stylo-historial"
+                                    [routerLink]="['/services']" [queryParams]="{ id: row.id}"
+                                >
+                                    <mat-icon
+                                        class="icon-stylo-historial"
+                                        [svgIcon]="'heroicons_outline:search'"
+                                    ></mat-icon>
+                                </button>
                             </td>
                         </ng-container>
 

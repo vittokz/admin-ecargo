@@ -57,7 +57,7 @@
     </div>
 
      <!--FORMULARIO EDICION DE USUARIO-->
-     <form [formGroup]="formEditar" class="flex flex-col p-4 bg-card rounded-2xl shadow overflow-hidden">
+     <form *ngIf="data.title==='Editar Usuario'" [formGroup]="formEditarUsuario" class="flex flex-col p-4 bg-card rounded-2xl shadow overflow-hidden">
         <strong class="mb-3">Todos los campos son requeridos</strong>
         <div class="flex">
             <mat-form-field
@@ -110,6 +110,82 @@
             <mat-form-field
             [ngClass]="formFieldHelpers"
             class="flex-auto gt-xs:pl-3">
+            <mat-select formControlName="estado" [(value)]="estadoInicialUsuario" placeholder="{{estadoInicialUsuario}}">
+                <mat-option value="true">true</mat-option>
+                <mat-option value="false">false</mat-option>
+            </mat-select>
+        </mat-form-field>
+        </div>
+    </form>
+
+    <!--FORMULARIO AGREGAR USUARIO-->
+    <form *ngIf="data.title==='Agregar Usuario'" [formGroup]="formAgregarUsuario" class="flex flex-col p-4 bg-card rounded-2xl shadow overflow-hidden">
+        <strong class="mb-3">Todos los campos son requeridos</strong>
+        <div class="flex">
+            <mat-form-field
+               
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="nombres"
+                    matInput
+                    [placeholder]="'Nombres'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+           
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="apellidos"
+                    matInput
+                    [placeholder]="'Apellidos'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+         
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="email"
+                    matInput
+                    [placeholder]="'Email'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+           
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="movil"
+                 type="text"
+                 maxlength="13"
+                 minlength="13"
+                    matInput
+                    [placeholder]="'Movil'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+           
+                [ngClass]="formFieldHelpers"
+                class="flex-auto">
+                <input
+                formControlName="movilEmergencia"
+                 type="text"
+                 maxlength="13"
+                 minlength="13"
+                    matInput
+                    [placeholder]="'Movil Emergencia'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <mat-form-field
+            [ngClass]="formFieldHelpers"
+            class="flex-auto gt-xs:pl-3">
             <mat-select formControlName="estado" [(value)]="estadoInicialUsuario" [placeholder]="'Estado usuario'">
                 <mat-option value="true">true</mat-option>
                 <mat-option value="false">false</mat-option>
@@ -117,6 +193,11 @@
         </mat-form-field>
         </div>
     </form>
+
+    <!--TEXTO PARA PREGUNTAR SI DEBERAS DESEA ELIMINAR EL USUARIO-->
+    <div class="p-5 mt-3 ml-3" *ngIf="data.title==='Eliminar Usuario'">
+        <span class="text-xl">¿ Esta seguro de eliminar el usuario <strong>{{data.names}} {{data.last_names}}</strong>?</span>
+    </div>
 
     <!-- Actions -->
     <ng-container *ngIf="data.actions.confirm.show || data.actions.cancel.show">
@@ -134,13 +215,31 @@
             <!-- Confirm -->
             <ng-container *ngIf="data.actions.confirm.show">
                 <button
+                *ngIf="data.title==='Editar Usuario'"
                     (click)="editarUsuarios()"
-                    [disabled]="!formEditar.valid"
+                    [disabled]="!formEditarUsuario.valid"
                     mat-flat-button
                     [color]="data.actions.confirm.color"
                     [matDialogClose]="'confirmed'">
                     {{data.actions.confirm.label}}
                 </button>
+                <button
+                *ngIf="data.title==='Eliminar Usuario'"
+                    (click)="EliminarUsuario()"
+                    mat-flat-button
+                    [color]="data.actions.confirm.color"
+                    [matDialogClose]="'confirmed'">
+                    {{data.actions.confirm.label}}
+                </button>
+                <button
+                *ngIf="data.title==='Agregar Usuario'"
+                (click)="agregarUsuario()"
+                [disabled]="!formAgregarUsuario.valid"
+                mat-flat-button
+                [color]="data.actions.confirm.color"
+                [matDialogClose]="'confirmed'">
+                {{data.actions.confirm.label}}
+            </button>
             </ng-container>
 
         </div>

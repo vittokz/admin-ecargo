@@ -18,22 +18,22 @@ export interface IUser {
 
  //DEFINE LA ESTRUCTURA COMPLETA DE LOS CAMPOS DE LA BASE DE DATOS FIREBASE
   export interface IUserFirebase {
-    user_fmasivo: boolean;
-    agreement: Agreement;
-    wallet: number;
-    profile_info: ProfileInfo;
-    creation_date: string;
-    enable: boolean;
-    save_addresses: any[];
-    notification_id: string;
+    user_fmasivo?: boolean;
+    agreement?: Agreement;
+    wallet?: number;
+    profile_info?: ProfileInfo;
+    creation_date?: Date;
+    enable?: boolean;
+    save_addresses?: any[];
+    notification_id?: string;
   }
 
   export interface Agreement {}
   export interface ProfileInfo {
-    email: string;
-    photo_url: string;
-    emg_phone: string;
-    names: string;
-    phone: string;
-    last_names: string;
+    email?: string;
+    photo_url?: string;
+    emg_phone?: string;
+    names?: string;
+    phone?: string;
+    last_names?: string;
   }

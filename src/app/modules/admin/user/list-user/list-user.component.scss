@@ -29,10 +29,21 @@ table {
     }
 
   .btn-stylo-historial{
-    background-color: red !important;
+    background-color: rgb(202, 199, 199) !important;
   }
-  .icon-stylo-historial, .icon-stylo-editar {
+  .btn-stylo-eliminar{
+    background-color: rgb(205, 10, 10) !important;
+  }
+  .icon-stylo-historial, .icon-stylo-editar, .icon-stylo-eliminar {
     color: white !important;
+    width: 2px !important;
+  }
+  .icon-stylo-check {
+    color: rgb(16, 122, 221) !important;
+    width: 2px !important;
+  }
+  .icon-stylo-inactivo{
+    color: rgb(184, 37, 5) !important;
     width: 2px !important;
   }
   .btn-stylo-editar{
