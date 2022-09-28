@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Drivers, Profile } from 'app/shared/model/driver.model';
 import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {  MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Dialog } from '@angular/cdk/dialog';
+import {  MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog_drivers.component';
 
@@ -23,7 +22,7 @@ import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog
     ]),
   ],
 })
-export class ListDriversComponent implements AfterViewInit {
+export class ListDriversComponent {
   formPersonal: FormGroup;
   changeform: boolean = false;
   dataDriverUpdate: Profile;
@@ -105,6 +104,7 @@ export class ListDriversComponent implements AfterViewInit {
         });        
       })
       this.dataSource = new MatTableDataSource<Drivers>(this.infoDrivers);
+      this.dataSource.paginator = this.paginator;
       console.log(this.dataDrivers);
       
     });
@@ -151,7 +151,6 @@ export class ListDriversComponent implements AfterViewInit {
     this.formPersonal.disable();
     this.disablebutton = true;
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  
+  @ViewChild (MatPaginator) paginador: MatPaginator;
 }
