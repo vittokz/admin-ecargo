@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {  MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Dialog } from '@angular/cdk/dialog';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog_drivers.component';
 
 @Component({
@@ -43,7 +44,8 @@ export class ListDriversComponent implements AfterViewInit {
     private drivers: DriversFirebaseService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _fuseConfirmationService: FuseConfirmationService,
   ){        
     this.getDrivers();
   }
@@ -60,6 +62,23 @@ export class ListDriversComponent implements AfterViewInit {
     })
   }
 
+  deleteDriver(idDrivers: string): void{
+    const dialogRef = this._fuseConfirmationService.openDriver(
+      idDrivers, 
+      'eliminar-driver'
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result==='confirmed'){
+          this._snackBar.open('hola', '', {
+              duration: 2000,
+              panelClass: ['mat-toolbar', 'mat-primary'],
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+          });
+      }
+  });
+    
+  }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DialogDrivers, {
       width: '250px',

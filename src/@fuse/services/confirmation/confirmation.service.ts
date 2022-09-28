@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { merge } from 'lodash-es';
 import { FuseConfirmationDialogComponent } from '@fuse/services/confirmation/dialog/dialog.component';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
+import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
 
 @Injectable()
 export class FuseConfirmationService
@@ -28,7 +29,27 @@ export class FuseConfirmationService
         },
         dismissible: false
     };
-
+    private _driverConfig: FuseConfirmationConfig = {
+        title      : 'Confirm action',
+        message    : '',
+        icon       : {
+            show : true,
+            name : 'heroicons_outline:exclamation',
+            color: 'warn'
+        },
+        actions    : {
+            confirm: {
+                show : true,
+                label: 'Confirm',
+                color: 'warn'
+            },
+            cancel : {
+                show : true,
+                label: 'Cancel'
+            }
+        },
+        dismissible: false
+    };
     /**
      * Constructor
      */
@@ -52,6 +73,18 @@ export class FuseConfirmationService
             autoFocus   : false,
             disableClose: !userConfig.dismissible,
             data        : userConfig,
+            panelClass  : 'fuse-confirmation-dialog-panel'
+        });
+    }
+    openDriver(config: any, tipoAccion: string): MatDialogRef<DialogDrivers>
+    {                        
+        const driverConfig = merge({}, this._driverConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogDrivers, {
+            autoFocus   : false,
+            disableClose: !driverConfig.dismissible,
+            data        : driverConfig,
             panelClass  : 'fuse-confirmation-dialog-panel'
         });
     }

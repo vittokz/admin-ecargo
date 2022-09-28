@@ -39,10 +39,10 @@
                 <mat-tab label="Personal Dates" >  
                     <mat-grid-list cols="4" rowHeight="50vh">
                         <mat-grid-tile [colspan]="3">
-                            <form class="example-form text-center" [formGroup]="formPersonal">
+                            <form class="example-form" [formGroup]="formPersonal">
                                 <section >
                                     <div class="example-button-row">                                                      
-                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="openDialog('0ms', '0ms')">
+                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="deleteDriver(element)">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                         <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon"                                      

@@ -1,7 +1,7 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
-import { MatDialogRef} from '@angular/material/dialog';
+import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
 
 @Component({
     selector     : 'dialog_drivers',
@@ -23,10 +23,13 @@ import { MatDialogRef} from '@angular/material/dialog';
 })
 export class DialogDrivers
 {
-    constructor(@Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig, 
-    public dialogRef: MatDialogRef<DialogDrivers>
-    )
-    {
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,
+        private driverFirebase: DriversFirebaseService         
+    ){             
+    }
+    deletedriver(): void{
+        this.driverFirebase.deleteDriverById(this.data['id']);
     }
 
 }

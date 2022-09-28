@@ -11,6 +11,7 @@ export class DriversFirebaseService {
   public getDrivers(){
     return this.afs.collection('drivers').snapshotChanges();
   }
+
   async updateDrivers(documentId: string, data: any){        
     await this.afs.collection('drivers').doc(documentId).update({
       'profile_info.names': data['names'],
@@ -22,4 +23,8 @@ export class DriversFirebaseService {
   });
   return 'success';
   }
+
+  async deleteDriverById(documentId: string) {
+    return this.afs.collection('drivers').doc(documentId).delete();
+}
 }
