@@ -6,6 +6,9 @@ import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.ser
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {  MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Dialog } from '@angular/cdk/dialog';
+import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog_drivers.component';
 
 @Component({
   selector: 'app-list-drivers',
@@ -40,6 +43,7 @@ export class ListDriversComponent implements AfterViewInit {
     private drivers: DriversFirebaseService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ){        
     this.getDrivers();
   }
@@ -54,6 +58,14 @@ export class ListDriversComponent implements AfterViewInit {
       emg_phone2: ['', [Validators.required]],
       email:      ['', [Validators.required]],
     })
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DialogDrivers, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
   
   getDrivers(){      
