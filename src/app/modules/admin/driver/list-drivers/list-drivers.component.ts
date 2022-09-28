@@ -32,10 +32,10 @@ export class ListDriversComponent implements AfterViewInit {
 
   disableinput = true;
   
-  constructor(private drivers: DriversFirebaseService, private formBuilder: FormBuilder) {
-    this.getDrivers(); 
-   
+  constructor(private drivers: DriversFirebaseService, private formBuilder: FormBuilder) {        
+    this.getDrivers();
   }
+
 
   initForm(){
     this.formPersonal = this.formBuilder.group({
@@ -50,10 +50,8 @@ export class ListDriversComponent implements AfterViewInit {
   
   getDrivers(){      
     this.initForm();
-    const data = this.drivers.getDrivers().subscribe((resp)=>{   
-      console.log(resp);
-      
-      // this.dataDrivers = resp;                     
+    const data = this.drivers.getDrivers().subscribe((resp)=>{                     
+      this.infoDrivers = [];
       resp.forEach((driver, index)=>{  
         this.dataDrivers.push(driver.payload.doc.data()); 
         this.infoDrivers.push({
@@ -64,15 +62,14 @@ export class ListDriversComponent implements AfterViewInit {
           email: driver.payload.doc.data()['profile_info']['email'],
           phone: driver.payload.doc.data()['profile_info']['phone'],
           avalible: driver.payload.doc.data()['busy']
-        });
-        // this.infoDrivers.push(driver.payload.doc.data())
+        });        
       })
       console.log(this.dataDrivers);
       console.log(this.infoDrivers);
       this.dataSource = new MatTableDataSource<Drivers>(this.infoDrivers);
     });
   }
-  agregarDatosFormularioEditar(index): void {                
+  agregarDatosFormularioEditar(index): void {                             
     this.formPersonal.get('names').setValue(this.dataDrivers[index]['profile_info'].names);
     this.formPersonal.get('last_names').setValue(this.dataDrivers[index]['profile_info'].last_names);
     this.formPersonal.get('phone').setValue(this.dataDrivers[index]['profile_info'].phone);
@@ -80,11 +77,8 @@ export class ListDriversComponent implements AfterViewInit {
     this.formPersonal.get('emg_phone2').setValue(this.dataDrivers[index]['profile_info'].emg_phone2);
     this.formPersonal.get('email').setValue(this.dataDrivers[index]['profile_info'].email);
 }
-  updateDrivers(){
-    
+  updateDrivers(id: string){
     const formulario = this.formPersonal.value;
-    console.log(formulario);
-    
     this.data = {
       names: formulario.names,
       last_names: formulario.last_names,
@@ -92,15 +86,14 @@ export class ListDriversComponent implements AfterViewInit {
       emg_phone1: formulario.emg_phone1,
       emg_phone2: formulario.emg_phone2,
       email: formulario.email,
-    }
-    console.log(this.data);
-    
-    
-    console.log('holaaaa');
-        
-    this.drivers.updateDrivers('AsiNPcgY4kXe93fzmqreDva4CsH3', this.data);
-    
-    
+    }       
+    this.drivers.updateDrivers(id, this.data).then(res => {
+      console.log(res);
+      if (res === 'sucess') {
+        this.getDrivers();
+      }
+      
+    });  
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

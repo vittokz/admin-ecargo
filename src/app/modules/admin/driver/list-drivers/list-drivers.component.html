@@ -43,13 +43,13 @@
                                     <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon"
-                                    (click)="updateDrivers()"  
+                                    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon"                                      
+                                    (click)="disableinput=!disableinput"
                                     >
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-mini-fab color="#0bb500" aria-label="Example icon button with a filter list icon"
-                                        *ngIf="disableinput==false" (click)="disableinput=true"
+                                        *ngIf="disableinput==false" (click)="disableinput=true; updateDrivers(element.id)"
                                     >
                                         <mat-icon>done</mat-icon>
                                     </button>                
