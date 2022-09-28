@@ -5,20 +5,27 @@
            Lista conductores
         </div> -->
         <div class="mat-elevation-z8">
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+              </mat-form-field>
             <table mat-table
-       [dataSource]="dataSource" multiTemplateDataRows
+       [dataSource]="dataSource" multiTemplateDataRows       
        class="mat-elevation-z8">
+       
   <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns; let i = index" >
     <th mat-header-cell *matHeaderCellDef > {{ column  }} </th>    
-    <td mat-cell *matCellDef="let element" (click)="agregarDatosFormularioEditar(element.no-1)"> {{ (i != 6) ? element[column] : ''}} <span *ngIf="i==6" class="mat-button-wrapper "
-        ><mat-icon 
-            class="animacion"                                   
-            [ngClass]="{'avalible': !element.avalible, 'noavalible': element.avalible}"                                
-            aria-hidden="false"
-            aria-label="Example home icon"
-            fontIcon="circle"
-        ></mat-icon>                                
-    </span> </td>
+    <td mat-cell *matCellDef="let element" (click)="agregarDatosFormularioEditar(element.no-1)"> {{ (i != 6) ? element[column] : ''}} 
+        <span *ngIf="i==6" class="mat-button-wrapper ">
+            <mat-icon 
+                class="animacion"                                   
+                [ngClass]="{'avalible': !element.avalible, 'noavalible': element.avalible}"                                
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="circle">
+            </mat-icon>                                
+        </span> 
+    </td>
   </ng-container>
   <ng-container matColumnDef="expand">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -40,7 +47,7 @@
                     <mat-grid-list cols="4" rowHeight="50vh">
                         <mat-grid-tile [colspan]="3">
                             <form class="example-form" [formGroup]="formPersonal">
-                                <section >
+                                <section >                                    
                                     <div class="example-button-row">                                                      
                                         <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="deleteDriver(element)">
                                             <mat-icon>delete</mat-icon>
@@ -54,7 +61,7 @@
                                             *ngIf="disablebutton==false" (click)="confirmEditButton(); updateDrivers(element.id)"
                                         >
                                             <mat-icon>done</mat-icon>
-                                        </button>                
+                                        </button>                                                        
                                     </div>                
                                 </section>         
                                 <table class="example-full-width" cellspacing="0"><tr>
