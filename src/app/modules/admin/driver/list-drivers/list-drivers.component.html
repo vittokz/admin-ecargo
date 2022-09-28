@@ -36,56 +36,64 @@
         <div class="example-element-detail"
         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <mat-tab-group mat-align-tabs="end">
-                <mat-tab label="Personal Dates" >                              
-                        <form class="example-form text-center" [formGroup]="formPersonal">
-                            <section >
-                                <div class="example-button-row">                                                      
-                                    <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon"                                      
-                                    (click)="disableinput=!disableinput"
-                                    >
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                    <button mat-mini-fab color="#0bb500" aria-label="Example icon button with a filter list icon"
-                                        *ngIf="disableinput==false" (click)="disableinput=true; updateDrivers(element.id)"
-                                    >
-                                        <mat-icon>done</mat-icon>
-                                    </button>                
-                                </div>                
-                            </section>         
-                            <table class="example-full-width" cellspacing="0"><tr>
-                                <td><mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>First name</mat-label>
-                                <input matInput formControlName="names">
-                                </mat-form-field></td>
-                                <td><mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>Last Name</mat-label>
-                                <input matInput  formControlName="last_names">
-                                </mat-form-field></td>
-                            </tr></table>
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>phone</mat-label>
-                                <input matInput  formControlName="phone">
-                            </mat-form-field>
-                            <table class="example-full-width" cellspacing="0"><tr>
-                                <td><mat-form-field class="example-full-width" appearance="fill">
-                                    <mat-label>emergency phone 1</mat-label>
-                                    <input matInput formControlName="emg_phone1">
-                                </mat-form-field></td>
-                                <td><mat-form-field class="example-full-width" appearance="fill">
-                                    <mat-label>emergency phone 2</mat-label>
-                                    <input matInput formControlName="emg_phone2">
-                                </mat-form-field></td>
-                                </tr></table>  
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label>Email</mat-label>
-                                <input matInput formControlName="email">
-                            </mat-form-field> 
-                                                            
-                        </form>                                       
+                <mat-tab label="Personal Dates" >  
+                    <mat-grid-list cols="4" rowHeight="50vh">
+                        <mat-grid-tile [colspan]="3">
+                            <form class="example-form text-center" [formGroup]="formPersonal">
+                                <section >
+                                    <div class="example-button-row">                                                      
+                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                        <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon"                                      
+                                        (click)="editButton()"
+                                        >
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                        <button mat-mini-fab color="#0bb500" aria-label="Example icon button with a filter list icon"
+                                            *ngIf="disablebutton==false" (click)="confirmEditButton(); updateDrivers(element.id)"
+                                        >
+                                            <mat-icon>done</mat-icon>
+                                        </button>                
+                                    </div>                
+                                </section>         
+                                <table class="example-full-width" cellspacing="0"><tr>
+                                    <td><mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>First name</mat-label>
+                                        <input matInput formControlName="names" (change)="changeform=true">
+                                    </mat-form-field></td>
+                                    <td><mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput  formControlName="last_names" (change)="changeform=true">
+                                    </mat-form-field></td>
+                                </tr></table>
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>phone</mat-label>
+                                    <input matInput  formControlName="phone" (change)="changeform=true">
+                                </mat-form-field>
+                                <table class="example-full-width" cellspacing="0"><tr>
+                                    <td><mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>emergency phone 1</mat-label>
+                                        <input matInput formControlName="emg_phone1" (change)="changeform=true">
+                                    </mat-form-field></td>
+                                    <td><mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>emergency phone 2</mat-label>
+                                        <input matInput formControlName="emg_phone2" (change)="changeform=true">
+                                    </mat-form-field></td>
+                                    </tr></table>  
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" (change)="changeform=true">
+                                </mat-form-field>
+                            </form>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="1">
+                            <img src="{{ dataDrivers[element.no-1]['profile_info']['photo_url'] }}"
+                            class="imgProfileDriver">
+                        </mat-grid-tile>
+                    </mat-grid-list>                                             
                 </mat-tab>
+
                 <mat-tab label="Vehicle Info">                            
                     <form class="example-form"> 
                             <div class="photovehicle">

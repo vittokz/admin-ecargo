@@ -13,9 +13,16 @@ table {
     }
     
   }
+  .imgProfileDriver{
+    vertical-align: middle;
+    width: 250px;
+    height: 275px;
+    border-radius: 15%;    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  }
   .example-form {
-    // min-width: 150px !important;
-    max-width: 500px !important;
+    min-width: 150px !important;
+    // max-width: 500px !important;
     width: 100% !important;
   }
   .photovehicle{

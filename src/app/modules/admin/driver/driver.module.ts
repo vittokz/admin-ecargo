@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRippleModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 const userRoutes: Route[] = [
@@ -32,7 +33,8 @@ const userRoutes: Route[] = [
     MatButtonModule,
     MatGridListModule,
     MatRippleModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
     
   ]
 })
