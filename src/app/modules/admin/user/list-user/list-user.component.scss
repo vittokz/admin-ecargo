@@ -53,7 +53,7 @@ table {
   th.mat-header-cell {
     font-size: 15px !important;
     font-weight: 500;
-    text-align: center;
+    text-align: center !important;
     color: rgb(255, 255, 255);
     background-color: rgb(87, 34, 235);
     padding-right: 10px;
@@ -63,7 +63,7 @@ table {
     padding-left: 8px;
   }
   td.mat-cell {
-    font-size: 13px;
+    font-size: 15px;
     text-align: center;
     white-space: nowrap;
     border: 1px solid rgb(245, 245, 245);
@@ -78,4 +78,12 @@ table {
   
   .mat-table-sticky-border-elem-left {
     border-right: 1px solid #e0e0e0;
+  }
+
+  .img_photo_url{
+    display: block;
+    margin: auto;
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 5px;
   }

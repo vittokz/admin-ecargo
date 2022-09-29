@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -5,7 +6,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
 import { IUser, IUserFirebase } from 'app/shared/models/user.model';
 import { UsersFirebaseService } from 'app/shared/services/users-firebase.service';
-import { isBuffer } from 'lodash';
+import { AngularFireStorage, AngularFireUploadTask  } from '@angular/fire/storage';
+import { FirebaseStorageService } from 'app/shared/services/storage-firebase.service';
+
+
 
 @Component({
     selector: 'dialog-user',
@@ -21,6 +25,21 @@ import { isBuffer } from 'lodash';
                     padding: 0 !important;
                 }
             }
+
+            .img_photo_url {
+                display: block;
+                margin: auto;
+                width: 90px !important;
+                height: 90px !important;
+                border-radius: 5px;
+            }
+            .order_upload_photo_url{
+                border: 1px solid rgb(16, 122, 221) !important;
+                padding: 8px;
+                display:flex;
+                flex-direction: column;
+                align-items:center;
+            }
         `,
     ],
     encapsulation: ViewEncapsulation.None,
@@ -31,11 +50,15 @@ export class DialogComponent {
     formAgregarUsuario: FormGroup;
     usersEditado: IUser;
     usersNuevo: IUserFirebase;
+    urlPerfilUsuario: string = '';
     estadoInicialUsuario: boolean;
+    file: File;
     /**
      * Constructor
      */
     constructor(
+        private storage: AngularFireStorage,
+        private firebaseStorage: FirebaseStorageService,
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,
         private formBuild: FormBuilder,
         private usersFirebaseServcice: UsersFirebaseService
@@ -46,12 +69,12 @@ export class DialogComponent {
                 last_names: '',
                 phone: '',
                 email: '',
-                enable: data['enable'] as boolean
+                enable: data['enable'] as boolean,
             };
-             this.crearFormularioEditarUsuario();
+            this.crearFormularioEditarUsuario();
         } else if (data.title === 'Agregar Usuario') {
             this.usersNuevo = {
-                agreement:{},
+                agreement: {},
                 creation_date: new Date(),
                 enable: true,
                 notification_id: '',
@@ -61,7 +84,7 @@ export class DialogComponent {
                     last_names: '',
                     names: '',
                     phone: '',
-                    photo_url:''
+                    photo_url: '',
                 },
                 save_addresses: [],
                 user_fmasivo: false,
@@ -70,6 +93,26 @@ export class DialogComponent {
             this.crearFormularioAgregarUsuario();
         }
     }
+
+    onFileSelect(event): void {
+        
+        if (event.target.files.length > 0) {
+          this.file = event.target.files[0];
+        }
+        const filePath = this.file.name;
+        // Crea una referencia de acceso
+        let referencia = this.firebaseStorage.referenciaCloudStorage(filePath);
+            let tarea = this.firebaseStorage.tareaCloudStorage(filePath, this.file);
+
+            //Cambia el porcentaje
+            tarea.percentageChanges().subscribe((porcentaje) => {
+    
+            });
+
+            referencia.getDownloadURL().subscribe((URL) => {
+            console.log('URL',URL);
+            });
+      }
 
     crearFormularioEditarUsuario(): void {
         this.formEditarUsuario = this.formBuild.group({
@@ -92,7 +135,7 @@ export class DialogComponent {
                     Validators.required,
                     Validators.maxLength(13),
                     Validators.minLength(13),
-                  //  Validators.pattern('^[0-9]+$'),
+                    //  Validators.pattern('^[0-9]+$'),
                 ],
             ],
         });
@@ -128,7 +171,7 @@ export class DialogComponent {
                     Validators.required,
                     Validators.maxLength(13),
                     Validators.minLength(13),
-                   // Validators.pattern('^[0-9]+$'),
+                    // Validators.pattern('^[0-9]+$'),
                 ],
             ],
         });
@@ -136,6 +179,7 @@ export class DialogComponent {
 
     agregarDatosFormularioEditar(data): void {
         this.estadoInicialUsuario = data.enable;
+        this.urlPerfilUsuario = data.photo_url;
         this.formEditarUsuario.get('nombres').setValue(data.names);
         this.formEditarUsuario.get('apellidos').setValue(data.last_names);
         this.formEditarUsuario.get('email').setValue(data.email);
@@ -149,7 +193,7 @@ export class DialogComponent {
         this.usersEditado['last_names'] = frm.apellidos;
         this.usersEditado['email'] = frm.email;
         this.usersEditado['phone'] = frm.movil;
-        this.usersEditado['enable'] = frm.estado==='true' ? true : false;
+        this.usersEditado['enable'] = frm.estado === 'true' ? true : false;
         this.usersFirebaseServcice.updateUser(
             this.data['id'],
             this.usersEditado

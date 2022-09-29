@@ -8,26 +8,21 @@ import { IUserFirebase } from '../models/user.model';
 @Injectable({
     providedIn: 'root',
 })
-export class UsersFirebaseService {
+export class ServicesFirebaseService {
     constructor(private afs: AngularFirestore) {}
 
-    //Traer todos los usuarios
-    getUsers(): any {
-        return this.afs.collection('users').snapshotChanges();
+    //Traer todos los servicios
+    getServices(): any {
+        return this.afs.collection('services').snapshotChanges();
     }
 
-    //Traer un usuario por Id
-    async getUserById(documentId: string) {
-        return this.afs.collection('users').doc(documentId).valueChanges();
+    //Traer un servicio por Id
+    getServiceById(documentIdUser: string) {
+        return this.afs.collection('services').doc(documentIdUser).valueChanges();
     }
-    //Traer un usuario por email
-    async getUserByEmail(email: string) {
-        return this.afs.collection('users').doc(email).valueChanges();
-    }
-
-    //Actualiza un usuario segun su ID
-    async updateUser(documentId: string, data: any) {
-        await this.afs.collection('users').doc(documentId).update({
+    //Actualiza un servicio segun su ID
+    async updateService(documentId: string, data: any) {
+        await this.afs.collection('services').doc(documentId).update({
             'profile_info.names': data['names'],
             'profile_info.last_names': data['last_names'],
             'profile_info.email': data['email'],
@@ -37,11 +32,11 @@ export class UsersFirebaseService {
         return 'success';
     }
 
-    //Agregar un usuario a la base de datos
-    async insertUser(data: IUserFirebase) {
+    //Agregar un servicio a la base de datos
+    async insertService(data: IUserFirebase) {
         return new Promise<any>((resolve, reject) => {
             this.afs
-                .collection('users')
+                .collection('services')
                 .add(data)
                 .then(
                     (response) => 'success',
@@ -51,8 +46,8 @@ export class UsersFirebaseService {
                 );
         });
     }
-     //Eliminar un usuario por Id
-     async deleteUserById(documentId: string) {
-        return this.afs.collection('users').doc(documentId).delete();
+     //Eliminar un servicio por Id
+     async deleteServiceById(documentId: string) {
+        return this.afs.collection('services').doc(documentId).delete();
     }
 }

@@ -24,6 +24,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     messageEliminarUsuario: string = 'Usuario eliminado correctamente.';
     configForm: UntypedFormGroup;
     displayedColumns: string[] = [
+        'foto',
         'names',
         'last_names',
         'create',
@@ -81,6 +82,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                     //enable: user.payload.doc.data()['enable'],
                     enable: user.payload.doc.data()['enable'],
                     names: user.payload.doc.data()['profile_info']['names'],
+                    photo_url: user.payload.doc.data()['profile_info']['photo_url'],
                     last_names:
                         user.payload.doc.data()['profile_info']['last_names'],
                     phone: user.payload.doc.data()['profile_info']['phone'],

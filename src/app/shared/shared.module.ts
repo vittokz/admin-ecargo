@@ -10,6 +10,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSortModule} from '@angular/material/sort';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
     imports: [
         CommonModule,
@@ -20,9 +22,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSortModule,
         MatPaginatorModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCardModule
     ],
     exports: [
         CommonModule,
@@ -34,8 +38,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatFormFieldModule,
         MatPaginatorModule,
         MatInputModule,
+        MatSortModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCardModule
     ],
     declarations: [],
 })
