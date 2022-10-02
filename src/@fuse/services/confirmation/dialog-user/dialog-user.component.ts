@@ -213,7 +213,6 @@ export class DialogComponent {
 
     //METODO PARA ELIMINAR USUARIO
     EliminarUsuario(): void {
-        console.log(this.data);
-        this.usersFirebaseServcice.deleteUserById(this.data['id']);
+        this.usersFirebaseServcice.updateEstadoUser(this.data['id']);
     }
 }

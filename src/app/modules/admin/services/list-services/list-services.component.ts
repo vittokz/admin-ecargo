@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -124,6 +125,7 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
                     });
                 }
             });
+            console.log(this.infoServices);
             this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.infoServices);
         });
@@ -143,5 +145,11 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
             service,
             'ver-detalle'
         );
+    }
+
+    //recuperar el estado del servicio
+    getStatus(service): any {
+        const resp = this.servicesService.getStatus(this.infoServices);
+        return resp;
     }
 }

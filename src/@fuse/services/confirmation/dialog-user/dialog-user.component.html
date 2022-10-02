@@ -7,6 +7,7 @@
                 mat-icon-button
                 [matDialogClose]="undefined">
                 <mat-icon
+                style="color:white !important"
                     class="text-secondary"
                     [svgIcon]="'heroicons_outline:x'"></mat-icon>
             </button>
@@ -63,7 +64,7 @@
          <div class="order_upload_photo_url">
            <div>
             <img *ngIf="urlPerfilUsuario!==''" class="img_photo_url mb-3" src="{{urlPerfilUsuario}}">
-            <img matTooltip="Sin foto de perfil" *ngIf="urlPerfilUsuario===''" class="img_photo_url" src="assets/images/logo/sinFoto.jpg">
+            <img matTooltip="Sin foto de perfil" *ngIf="urlPerfilUsuario===''" class="img_photo_url mb-3" src="assets/images/logo/sinFoto.jpg">
         </div>
             <div><input accept=".jpg,.png,.jpeg" type="file" name="file" (change)="onFileSelect($event)"/></div>
          </div>

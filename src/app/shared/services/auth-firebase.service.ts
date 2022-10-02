@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -18,11 +19,25 @@ export class AuthFirebaseService {
   signIn(email: string, password: string): any {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log('ingreso', result);
-      })
+      .then((result) =>
+        result.user['Aa']
+      )
       .catch((error) => {
         window.alert(error.message);
       });
   }
+
+  //devolver en token almacenado
+  getTokenGenerado(): any {
+    return localStorage.getItem('token');
+  }
+  //Almacenar el token despues de login correcto
+  setTokenGenerado(token: string): void {
+     localStorage.setItem('token',token);
+  }
+
+  //eliminar el token de localStorage
+  removeTokenGenerado(): void {
+    localStorage.removeItem('token');
+ }
 }

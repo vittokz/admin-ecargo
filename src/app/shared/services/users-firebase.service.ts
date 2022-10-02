@@ -55,4 +55,12 @@ export class UsersFirebaseService {
      async deleteUserById(documentId: string) {
         return this.afs.collection('users').doc(documentId).delete();
     }
+
+     //Actualiza estado enable del usuario
+     async updateEstadoUser(documentId: string) {
+        await this.afs.collection('users').doc(documentId).update({
+            'enable': false,
+        });
+        return 'success';
+    }
 }

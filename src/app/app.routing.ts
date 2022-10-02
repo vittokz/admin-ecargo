@@ -8,8 +8,19 @@ import { InitialDataResolver } from 'app/app.resolvers';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-    { path: '', pathMatch: 'full', redirectTo: 'home' },
+    { path: '', pathMatch: 'full', redirectTo: 'login' },
     // Admin routes
+    {
+        path: 'login',
+        canActivate: [],
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/auth/sign-in/sign-in.module').then(
+                m => m.AuthSignInModule
+            ),
+    },
     {
         path: 'home',
         canActivate: [],

@@ -5,6 +5,7 @@
             <button mat-icon-button [matDialogClose]="undefined">
                 <mat-icon
                     class="text-secondary"
+                    style="color: white !important"
                     [svgIcon]="'heroicons_outline:x'"
                 ></mat-icon>
             </button>
@@ -74,41 +75,218 @@
         <mat-card class="example-card p-5 mt-2">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{
-                    data["users_info"].client_info.name
-                }} </mat-card-title>
-                <mat-card-subtitle>Usuario que solicito el servicio</mat-card-subtitle>
+                <mat-card-title
+                    >{{ data["users_info"].client_info.name }}
+                </mat-card-title>
+                <mat-card-subtitle
+                    >Usuario que solicito el servicio</mat-card-subtitle
+                >
             </mat-card-header>
-           <div class="content-image p-5">
-            <img class="content-image__image"
-            mat-card-image
-            src="https://imagenpng.com/wp-content/uploads/2016/04/mapamundi-1.jpg"
-            alt="Photo of a Shiba Inu"
-        />
-           </div>
-            <mat-card-content >
-                <div class="order-items">
+            <div class="content-image p-5">
+                <img
+                    class="content-image__image"
+                    mat-card-image
+                    src="https://imagenpng.com/wp-content/uploads/2016/04/mapamundi-1.jpg"
+                    alt="Photo of a Shiba Inu"
+                />
+            </div>
+            <mat-card-content>
+                <mat-accordion>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                               DATOS DEL USUARIO Y EL CONDUCTOR
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="order-items">
+                            <div>
+                                <h1 class="order-items__title">Usuario</h1>
+                                <strong>Nombre</strong> :
+                                {{ data["users_info"].client_info.name }}<br />
+                                <strong>Teléfono</strong> :
+                                {{ data["users_info"].client_info.phone }}<br />
+                                <strong>Emáil</strong> :
+                                {{ data["users_info"].client_info.email }}<br>
+                            </div>
+                            <div>
+                                <h1 class="order-items__title">Conductor</h1>
+                                <strong>Nombre</strong> :
+                                {{ data["users_info"].driver_info.name }}<br />
+                                <strong>Teléfono</strong> :
+                                {{ data["users_info"].driver_info.phone }}<br />
+                                <strong>Emáil</strong> :
+                                {{ data["users_info"].driver_info.email }}<br>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                DATOS DE ORIGEN Y DESTINO
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="order-items">
+                            <div>
+                                <h1 class="order-items__title">Origen</h1>
+                                <strong>Pais</strong> :
+                                {{
+                                    data["addresses_info"].delivery_address
+                                        .country
+                                }}<br />
+                                <strong>Ciudad</strong> :
+                                {{ data["addresses_info"].delivery_address.city
+                                }}<br />
+                                <strong>Dirección</strong> :
+                                {{
+                                    data["addresses_info"].delivery_address
+                                        .address
+                                }}
+                            </div>
+                            <div>
+                                <h1 class="order-items__title">Destino</h1>
+                                <strong>Pais</strong> :
+                                {{
+                                    data["addresses_info"].pickup_address
+                                        .country
+                                }}<br />
+                                <strong>Ciudad</strong> :
+                                {{ data["addresses_info"].pickup_address.city
+                                }}<br />
+                                <strong>Dirección</strong> :
+                                {{
+                                    data["addresses_info"].pickup_address
+                                        .address
+                                }}
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                INFORMACIÓN DEL SERVICIO
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="order-items">
+                            <div>
+                                <h1 class="order-items__title">Tipo</h1>
+                                <strong>Tipo Vehiculo</strong> :
+                                {{ data["service_details"].vehicle_type }}<br />
+                                <strong>Tipo Carga</strong> :
+                                {{ data["service_details"].service_type }}<br />
+                                <strong>Observaciones</strong> :
+                                {{ data["service_details"].observacion }}
+                            </div>
+                            <div>
+                                <h1 class="order-items__title">Detalles</h1>
+                                <strong>Volumen</strong> :{{
+                                    data["service_details"].volume
+                                }}<br />
+                                <strong>Altura</strong> :
+                                {{ data["service_details"].weight }}<br />
+                                <strong>Distancia</strong> :
+                                {{ data["service_details"].total_distance }} KM<br>
+                                <strong>Estado</strong> :
+                                {{ getStatus(data["status"]) }} 
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            INFORMACIÓN DEL VEHICULO
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="order-items">
+                        <div>
+                            <h1 class="order-items__title">Vehiculo</h1>
+                            <strong>Marca</strong> :
+                            {{ data["vehicle_info"].brand }}<br />
+                            <strong>Color</strong> :
+                            {{ data["vehicle_info"].color }}<br />
+                            <strong>Modelo</strong> :
+                            {{ data["vehicle_info"].modelo }}
+                        </div>
+                        <div>
+                            <h1 class="order-items__title"></h1>
+                            <strong>Placa</strong> :{{
+                                data["vehicle_info"].plate
+                            }}<br />
+                            <strong>Tipo</strong> :
+                            {{ data["vehicle_info"].type }}<br />
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                </mat-accordion>
+
+                <!-- <div class="order-items">
                     <div class="order-items__content-origen">
                         <div class="mb-3"><strong>DATOS DE ORIGEN</strong></div>
-                        <p>Pais :  {{ data["addresses_info"].delivery_address.country}}</p>
-                        <p>Ciudad : {{ data["addresses_info"].delivery_address.address}}</p>
-                        <p>Dirección :  {{ data["addresses_info"].delivery_address.city}}</p>
+                        <p>
+                            Pais :
+                            {{
+                                data["addresses_info"].delivery_address.country
+                            }}
+                        </p>
+                        <p>
+                            Dirección :
+                            {{
+                                data["addresses_info"].delivery_address.address
+                            }}
+                        </p>
+                        <p>
+                            Ciudad :
+                            {{ data["addresses_info"].delivery_address.city }}
+                        </p>
                     </div>
                     <div class="order-items__content-destino">
-                        <div class="mb-3"><strong>DATOS DE DESTINO</strong></div>
-                        <p>Pais :  {{ data["addresses_info"].pickup_address.country}}</p>
-                        <p>Ciudad :  {{ data["addresses_info"].pickup_address.address}}</p>
-                        <p>Dirección:  {{ data["addresses_info"].pickup_address.city}}</p>
+                        <div class="mb-3">
+                            <strong>DATOS DE DESTINO</strong>
+                        </div>
+                        <p>
+                            Pais :
+                            {{ data["addresses_info"].pickup_address.country }}
+                        </p>
+                        <p>
+                            Dirección :
+                            {{ data["addresses_info"].pickup_address.address }}
+                        </p>
+                        <p>
+                            Ciudad:
+                            {{ data["addresses_info"].pickup_address.city }}
+                        </p>
                     </div>
                     <div class="order-items__content-detalle">
-                        <div class="mb-3"><strong>DATOS DEL SERVICIO</strong></div>
-                        <p>Tipo Carga :  {{ data["service_details"].service_type}}</p>
-                        <p>Volume :  {{ data["service_details"].volume}}</p>
-                        <p>Altura:  {{ data["service_details"].weight}}</p>
-                        <p>Tipo Vehiculo:  {{ data["service_details"].vehicle_type}}</p>
-                        <p>Distancia:  {{ data["service_details"].total_distance}} km</p>
+                        <div class="mb-3">
+                            <strong>DATOS DEL SERVICIO</strong>
+                        </div>
+                        <p>
+                            Tipo Carga :
+                            {{ data["service_details"].service_type }}
+                        </p>
+                        <p>Volume : {{ data["service_details"].volume }}</p>
+                        <p>Altura: {{ data["service_details"].weight }}</p>
+                        <p>
+                            Tipo Vehiculo:
+                            {{ data["service_details"].vehicle_type }}
+                        </p>
+                        <p>
+                            Distancia:
+                            {{ data["service_details"].total_distance }} km
+                        </p>
                     </div>
-                </div>
+                </div> -->
             </mat-card-content>
         </mat-card>
     </div>
