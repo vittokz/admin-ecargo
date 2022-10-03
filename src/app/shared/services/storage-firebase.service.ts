@@ -12,12 +12,12 @@ export class FirebaseStorageService  {
   ) { }
 
   //metodo para subir archivo
-   tareaCloudStorage(nombreArchivo: string, datos: any) {
+   subirArchivoCloudStorage(nombreArchivo: string, datos: any) {
     return this.storage.upload(nombreArchivo, datos);
   }
 
   //Referencia del archivo
    referenciaCloudStorage(nombreArchivo: string){
-    return this.storage.ref(nombreArchivo);
+     return this.storage.ref(nombreArchivo);
   }
 }

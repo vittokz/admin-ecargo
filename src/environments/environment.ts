@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/quotes */
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -12,7 +14,11 @@ export const environment = {
         messagingSenderId: "699858240276",
         appId: "1:699858240276:web:7f048b8cac8dc221bb7801",
         measurementId: "G-HT9748HN1M"
-      }
+      },
+    mapBox: {
+      tokenMapBox: 'pk.eyJ1Ijoidml0dG9yaW8xNSIsImEiOiJjbDhzem13ajMwMml4M3dxbXZxaWI0aTRzIn0.z4z_KAx4chBQzogbsU85LQ',
+      api: 'https://api.mapbox.com/directions/v5/mapbox/driving/'
+    }
 };
 
 

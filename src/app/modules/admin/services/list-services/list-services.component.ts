@@ -53,7 +53,6 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
         this.route.queryParamMap.subscribe((params) => {
             this.paramUrl = { ...params.keys, ...params };
         });
-        console.log(this.paramUrl);
         this.getServices();
         this.config();
     }
@@ -125,9 +124,10 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
                     });
                 }
             });
-            console.log(this.infoServices);
+            console.log('this.infoServices',this.infoServices);
             this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.infoServices);
+            this.dataSource.paginator = this.paginator;
         });
     }
     getServicesById(idUser: string): void {}

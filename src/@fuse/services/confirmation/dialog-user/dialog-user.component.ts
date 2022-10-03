@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
@@ -95,25 +96,19 @@ export class DialogComponent {
     }
 
     onFileSelect(event): void {
-        
         if (event.target.files.length > 0) {
           this.file = event.target.files[0];
         }
-        const filePath = this.file.name;
+       const idUserFirebase = this.data['id'];
+        const filePath = 'users/'+ idUserFirebase + '/profile/Profile.jpg';
         // Crea una referencia de acceso
         let referencia = this.firebaseStorage.referenciaCloudStorage(filePath);
-            let tarea = this.firebaseStorage.tareaCloudStorage(filePath, this.file);
-
-            //Cambia el porcentaje
-            tarea.percentageChanges().subscribe((porcentaje) => {
-    
-            });
-
-            referencia.getDownloadURL().subscribe((URL) => {
-            console.log('URL',URL);
-            });
-      }
-
+        //actualizamos el la base de datos, por si no existe un registro anterior de foto de perfil
+        const tarea = this.firebaseStorage.subirArchivoCloudStorage(filePath, this.file);
+        referencia.getDownloadURL().subscribe((URL) => {
+           this.urlPerfilUsuario = URL;
+        });
+    }
     crearFormularioEditarUsuario(): void {
         this.formEditarUsuario = this.formBuild.group({
             nombres: ['', Validators.required],
@@ -189,11 +184,14 @@ export class DialogComponent {
     //METODO PARA EDITAR USUARIO
     editarUsuarios(): void {
         const frm = this.formEditarUsuario.value;
+
         this.usersEditado['names'] = frm.nombres;
         this.usersEditado['last_names'] = frm.apellidos;
         this.usersEditado['email'] = frm.email;
         this.usersEditado['phone'] = frm.movil;
+        this.usersEditado['photo_url'] =  this.urlPerfilUsuario;
         this.usersEditado['enable'] = frm.estado === 'true' ? true : false;
+        debugger;
         this.usersFirebaseServcice.updateUser(
             this.data['id'],
             this.usersEditado

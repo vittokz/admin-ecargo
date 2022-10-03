@@ -32,6 +32,19 @@ export class UsersFirebaseService {
             'profile_info.last_names': data['last_names'],
             'profile_info.email': data['email'],
             'profile_info.phone': data['phone'],
+            'profile_info.photo_url': data['photo_url'],
+            'enable': data['enable'],
+        });
+        return 'success';
+    }
+
+     //Actualiza photo-perfil de usuario segun su ID
+     async updatePhotoPerfilUser(documentId: string, data: any) {
+        await this.afs.collection('users').doc(documentId).update({
+            'profile_info.names': data['names'],
+            'profile_info.last_names': data['last_names'],
+            'profile_info.email': data['email'],
+            'profile_info.phone': data['phone'],
             'enable': data['enable'],
         });
         return 'success';
