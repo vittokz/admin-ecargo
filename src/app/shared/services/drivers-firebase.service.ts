@@ -27,4 +27,8 @@ export class DriversFirebaseService {
   async deleteDriverById(documentId: string) {
     return this.afs.collection('drivers').doc(documentId).delete();
 }
+public getDriversServices(){
+  return this.afs.collection('services').snapshotChanges();
+}
+
 }

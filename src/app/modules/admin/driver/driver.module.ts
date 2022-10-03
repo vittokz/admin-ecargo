@@ -11,6 +11,7 @@ import { MatRippleModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
 
 
 const userRoutes: Route[] = [
@@ -36,7 +37,8 @@ const userRoutes: Route[] = [
     MatRippleModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule
     
   ]
 })

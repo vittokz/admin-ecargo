@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,12 +23,13 @@ import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog
     ]),
   ],
 })
-export class ListDriversComponent {
+export class ListDriversComponent implements OnInit{
   formPersonal: FormGroup;
   changeform: boolean = false;
   dataDriverUpdate: Profile;
   disablebutton: boolean;
   infoDrivers = [];
+  historyServices = [];
   message: string = 'Usuario actualizado correctamente.';
   data: {};
   dataDrivers = [];  
@@ -39,17 +40,19 @@ export class ListDriversComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   
-  
   constructor(
     private drivers: DriversFirebaseService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     private _fuseConfirmationService: FuseConfirmationService,
-  ){        
+  ){           
     this.getDrivers();
   }
+  ngOnInit(): void {         
 
+  }
+  
 
   initForm(){    
     this.formPersonal = this.formBuilder.group({
@@ -109,6 +112,19 @@ export class ListDriversComponent {
       console.log(this.dataDrivers);
       
     });
+  }
+  getHistoryServices(idDriver: string ){
+    console.log(idDriver);
+    this.historyServices = [];
+    const data = this.drivers.getDriversServices().subscribe((res) => {
+      res.forEach((service) => {
+        if (service.payload.doc.data()['users_info']['driver_info']['uid'] == idDriver) {
+          this.historyServices.push(service.payload.doc.data());
+        }
+      });
+      console.log(this.historyServices);
+      
+    })
   }
   agregarDatosFormularioEditar(index): void { 
     this.formPersonal.disable();                          
