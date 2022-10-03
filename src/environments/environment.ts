@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/quotes */
 // This file can be replaced during build by using the `fileReplacements` array.
@@ -17,7 +18,14 @@ export const environment = {
       },
     mapBox: {
       tokenMapBox: 'pk.eyJ1Ijoidml0dG9yaW8xNSIsImEiOiJjbDhzem13ajMwMml4M3dxbXZxaWI0aTRzIn0.z4z_KAx4chBQzogbsU85LQ',
-      api: 'https://api.mapbox.com/directions/v5/mapbox/driving/'
+      params: {
+        alternatives: false,
+        geometries: 'geojson',
+        language: 'es',
+        overview: 'simplifield',
+        steps: false,
+        access_token: 'https://api.mapbox.com/directions/v5/mapbox/driving',
+      }
     }
 };
 

@@ -16,7 +16,7 @@ import { AuthFirebaseService } from './auth-firebase.service';
   @Injectable({
     providedIn: 'root',
   })
-  export class InterceptorService {
+  export class InterceptorService implements HttpInterceptor {
     constructor(private router: Router, private authServiceFirebase: AuthFirebaseService) {}
   
     intercept(
@@ -34,13 +34,13 @@ import { AuthFirebaseService } from './auth-firebase.service';
           },
         });
       }
+      console.log('paso por el interceptor',token);
   
       return next.handle(request).pipe(
         catchError((err: HttpErrorResponse) => {
           //si peticion no fue ejecuta por credenciales
-          if (err.status === 401) {
-            this.router.navigateByUrl('/');
-          }
+            this.router.navigateByUrl('login');
+    
   
           return throwError(err);
         })
