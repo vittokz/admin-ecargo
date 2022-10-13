@@ -13,6 +13,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+import { DataTableComponent } from './components/services/data-table/data-table.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatButtonModule,
         MatSnackBarModule,
         MatCardModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTabsModule
     ],
     exports: [
         CommonModule,
@@ -44,8 +47,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatButtonModule,
         MatSnackBarModule,
         MatCardModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTabsModule,
+        DataTableComponent
     ],
-    declarations: [],
+    declarations: [
+    DataTableComponent
+  ],
 })
 export class SharedModule {}

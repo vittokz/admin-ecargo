@@ -55,37 +55,35 @@ export class ServicesFirebaseService {
 
     getStatus(service: IService[]): any {
         let respuesta;
-        service.map((service: IService)=>{
-            if(service.status=== 1){
+            if(service['status']=== 1){
                 respuesta = 'Creado';
             }else
-            if(service.status=== 2){
+            if(service['status']=== 2){
                 respuesta = 'Aceptado por conductor';
             }else
-            if(service.status=== 3){
+            if(service['status']=== 3){
                 respuesta = 'Carga recogida y en camino a entregar';
             }else
-            if(service.status=== 4){
+            if(service['status']=== 4){
                 respuesta = 'Carga entregada';
             }else
-            if(service.status=== 5){
+            if(service['status']=== 5){
                 respuesta = 'Pagado. El usuario realizó el pago y calificó el servicio';
             }
-            if(service.status=== 6){
+            if(service['status']=== 6){
                 respuesta = 'Programado';
             }else
-            if(service.status=== 7){
+            if(service['status']=== 7){
                 respuesta = 'Programado. Aceptado por conductor';
             }else
-            if(service.status=== 8){
+            if(service['status']=== 8){
                 respuesta = 'Cancelado';
             }else
-            if(service.status=== 9){
+            if(service['status']=== 9){
                 respuesta = 'Solicitudes pérdidas';
             }else{
                 respuesta = 'Sin estado';
             }
-        });
         return respuesta;
     }
 }

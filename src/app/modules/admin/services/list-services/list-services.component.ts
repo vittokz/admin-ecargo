@@ -124,7 +124,6 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
                     });
                 }
             });
-            console.log('this.infoServices',this.infoServices);
             this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.infoServices);
             this.dataSource.paginator = this.paginator;

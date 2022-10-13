@@ -31,7 +31,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Servicios',
         type: 'basic',
         icon: 'heroicons_outline:database',
-        link: '/services',
+        link: '/services/all-services',
         roles: [],
     },
 ];
