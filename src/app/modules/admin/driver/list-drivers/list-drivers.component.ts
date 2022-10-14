@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {  MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog_drivers.component';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-list-drivers',
@@ -116,13 +117,18 @@ export class ListDriversComponent implements OnInit{
   getHistoryServices(idDriver: string ){
     console.log(idDriver);
     this.historyServices = [];
+    let count = 0;
     const data = this.drivers.getDriversServices().subscribe((res) => {
-      res.forEach((service) => {
+      res.forEach((service, index) => {        
         if (service.payload.doc.data()['users_info']['driver_info']['uid'] == idDriver) {
-          this.historyServices.push(service.payload.doc.data());
+          if (count < 5) {
+            count++;
+            this.historyServices.push(service.payload.doc.data());            
+          }
         }
       });
       console.log(this.historyServices);
+      this.historyServices.sort((a,b) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
       
     })
   }

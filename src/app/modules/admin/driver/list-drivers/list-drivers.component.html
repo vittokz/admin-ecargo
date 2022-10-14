@@ -143,11 +143,22 @@
                     </form>                           
                 </mat-tab>
                 <mat-tab label="Services Info">                               
-                    <mat-list role="list">
-                        <mat-list-item role="listitem">Item 1</mat-list-item>
-                        <mat-list-item role="listitem">Item 2</mat-list-item>
-                        <mat-list-item role="listitem">Item 3</mat-list-item>
-                      </mat-list>                        
+                    <mat-nav-list>
+                        <div *ngIf="historyServices.length == 0">
+                            <mat-icon mat-list-icon><span class="material-symbols-outlined">
+                                local_shipping
+                            </span></mat-icon>
+                            <div mat-line>No tiene servicios</div>
+                        </div>
+                        <a mat-list-item href="..." *ngFor="let link of historyServices; let i = index">
+                            <mat-icon mat-list-icon><span class="material-symbols-outlined">
+                                local_shipping
+                                </span></mat-icon>
+                            <div mat-line>{{ link.addresses_info['pickup_address']['address'] }}, {{  link.addresses_info['pickup_address']['city'] }}</div>                                                          
+                            <div mat-line>{{ link.addresses_info['delivery_address']['address'] }}, {{  link.addresses_info['delivery_address']['city'] }}</div>
+                            <div mat-line>{{ (link.service_details['accepted_date']).toDate().toLocaleDateString() }}</div>
+                        </a>
+                     </mat-nav-list>                      
                 </mat-tab>
             </mat-tab-group>
         </div>   
