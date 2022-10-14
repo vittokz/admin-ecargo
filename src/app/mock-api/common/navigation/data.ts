@@ -26,6 +26,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/driver',
         roles: [],
     },
+    {
+        id: 'Servicios',
+        title: 'Servicios',
+        type: 'basic',
+        icon: 'heroicons_outline:database',
+        link: '/services',
+        roles: [],
+    },
 ];
 
 export const compactNavigation: FuseNavigationItem[] = [];

@@ -13,8 +13,11 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './shared/services/interceptor.service';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -30,6 +33,7 @@ const routerConfig: ExtraOptions = {
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
         AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireStorageModule,
         AngularFireAuthModule,
         // Fuse, FuseConfig & FuseMockAPI
         FuseModule,
@@ -45,6 +49,13 @@ const routerConfig: ExtraOptions = {
         // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({})
     ],
+    providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: InterceptorService,
+          multi: true
+        }
+      ],
     bootstrap   : [
         AppComponent
     ]
