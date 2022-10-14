@@ -30,6 +30,7 @@ export class ListDriversComponent implements OnInit{
   dataDriverUpdate: Profile;
   disablebutton: boolean;
   infoDrivers = [];
+  images = [];
   historyServices = [];
   message: string = 'Usuario actualizado correctamente.';
   data: {};
@@ -90,6 +91,12 @@ export class ListDriversComponent implements OnInit{
       exitAnimationDuration,
     });
   }
+  verDetalleServicio(service): void {
+    const dialogRef = this._fuseConfirmationService.openDialogDetalleServicio(
+        service,
+        'ver-detalle'
+    );
+}
   
   getDrivers(){      
     this.initForm();    
@@ -98,6 +105,9 @@ export class ListDriversComponent implements OnInit{
       this.dataDrivers = [];
       resp.forEach((driver, index)=>{  
         this.dataDrivers.push(driver.payload.doc.data()); 
+        this.images.push({
+          path: driver.payload.doc.data()['vehicle_info']['photos_urls']
+        });
         this.infoDrivers.push({
           no: index+1,
           id: driver.payload.doc.id,          
@@ -110,7 +120,7 @@ export class ListDriversComponent implements OnInit{
       })
       this.dataSource = new MatTableDataSource<Drivers>(this.infoDrivers);
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataDrivers);
+      console.log(this.images);
       
     });
   }
@@ -165,7 +175,9 @@ export class ListDriversComponent implements OnInit{
       });  
     }        
   }
-
+  buttonDocument(driver){
+    console.log(driver);    
+  }
   editButton(){
     this.formPersonal.enable();
     this.disablebutton = false;

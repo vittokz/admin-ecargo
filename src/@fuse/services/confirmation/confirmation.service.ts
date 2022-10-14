@@ -32,6 +32,27 @@ export class FuseConfirmationService
         },
         dismissible: false
     };
+    private _driverConfig: FuseConfirmationConfig = {
+        title      : 'Confirm action',
+        message    : '',
+        icon       : {
+            show : true,
+            name : 'heroicons_outline:exclamation',
+            color: 'warn'
+        },
+        actions    : {
+            confirm: {
+                show : true,
+                label: 'Confirm',
+                color: 'warn'
+            },
+            cancel : {
+                show : true,
+                label: 'Cancel'
+            }
+        },
+        dismissible: false
+    };
 
     /**
      * Constructor
@@ -74,5 +95,41 @@ export class FuseConfirmationService
             height: '800px',
             width: '1000px',
         });
+    }
+    openDriver(config: any, tipoAccion: string): MatDialogRef<DialogDrivers>
+    {                        
+        const driverConfig = merge({}, this._driverConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogDrivers, {
+            autoFocus   : false,
+            disableClose: !driverConfig.dismissible,
+            data        : driverConfig,
+            panelClass  : 'fuse-confirmation-dialog-panel'
+        });
+    }
+    crearConfiguracionDialog(title: string,icono: string): void {
+        this._defaultConfig = {
+            title: title,
+            message: '',
+            icon: {
+                show: true,
+                name:
+                    icono,
+                color: title !== 'Editar Usuario' ? 'warn' : 'success',
+            },
+            actions: {
+                confirm: {
+                    show: true,
+                    label: 'Aceptar',
+                    color: 'primary',
+                },
+                cancel: {
+                    show: true,
+                    label: 'Cancelar',
+                },
+            },
+            dismissible: true,
+        };
     }
 }

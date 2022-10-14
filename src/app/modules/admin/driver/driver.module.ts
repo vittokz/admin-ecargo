@@ -12,22 +12,19 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { DocumentsComponent } from './document-drivers/documents/documents.component';
+import { DriverRoutingModule } from './driver-rounting.module';
 
 
-const userRoutes: Route[] = [
-  {
-      path     : '',
-      component: ListDriversComponent
-  }
-];
 
 
 @NgModule({
   declarations: [
-    ListDriversComponent
+    ListDriversComponent,
+    DocumentsComponent
   ],
-  imports: [
-    RouterModule.forChild(userRoutes),
+  imports: [    
     CommonModule,
     SharedModule,
     MatPaginatorModule,
@@ -38,7 +35,9 @@ const userRoutes: Route[] = [
     MatTabsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    IvyCarouselModule,
+    DriverRoutingModule
     
   ]
 })

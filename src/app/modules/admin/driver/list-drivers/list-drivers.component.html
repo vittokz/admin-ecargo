@@ -4,11 +4,16 @@
         <!-- <div class="border-2 border-dashed border-gray-300 rounded-2xl">
            Lista conductores
         </div> -->
-        <div class="mat-elevation-z8">
-            <mat-form-field appearance="standard">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-              </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Buscar</mat-label>
+            <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder=""
+                #input
+            />
+        </mat-form-field>
+        <div class="mat-elevation-z8">            
             <table mat-table
        [dataSource]="dataSource" multiTemplateDataRows       
        class="mat-elevation-z8">
@@ -102,18 +107,31 @@
                 </mat-tab>
 
                 <mat-tab label="Vehicle Info">                            
-                    <form class="example-form"> 
+                    <form class="example-form">                                                            
                             <div class="photovehicle">
-                                <div class="example-ripple-container mat-elevation-z4 text-center"
-                                    matRipple
-                                    [matRippleCentered]="centered"
-                                    [matRippleDisabled]="disabled"
-                                    [matRippleUnbounded]="unbounded"
-                                    [matRippleRadius]="radius"
-                                    [matRippleColor]="color">
-                                    Photo Vehicle
+                                <div>
+                                    <carousel>
+                                        <div class="carousel-cell">
+                                            <img src="{{ dataDrivers[element.no-1]['vehicle_info']['photos_urls'][0] }}">
+                                        </div>
+                                        <div class="carousel-cell"> 
+                                            <img src="{{ dataDrivers[element.no-1]['vehicle_info']['photos_urls'][1] }}">
+                                        </div>
+                                        <div class="carousel-cell"> 
+                                            <img src="{{ dataDrivers[element.no-1]['vehicle_info']['photos_urls'][2] }}">
+                                        </div>
+                                        <div class="carousel-cell"> 
+                                            <img src="{{ dataDrivers[element.no-1]['vehicle_info']['photos_urls'][3] }}">
+                                        </div>                                          
+                                    </carousel>
+
                                 </div>
                             </div>
+                            <div class="photovehicle">
+                                <button mat-raised-button color="primary"
+                                routerLink="documents"       
+                                >Documentos</button>
+                            </div>                            
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>type</mat-label>
                                 <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['type'] }}">
@@ -144,13 +162,13 @@
                 </mat-tab>
                 <mat-tab label="Services Info">                               
                     <mat-nav-list>
-                        <div *ngIf="historyServices.length == 0">
+                        <div *ngIf="historyServices.length == 0" class="photovehicle">
                             <mat-icon mat-list-icon><span class="material-symbols-outlined">
                                 local_shipping
                             </span></mat-icon>
-                            <div mat-line>No tiene servicios</div>
+                            <div mat-line> No tiene servicios...</div>
                         </div>
-                        <a mat-list-item href="..." *ngFor="let link of historyServices; let i = index">
+                        <a mat-list-item *ngFor="let link of historyServices; let i = index" (click)="verDetalleServicio(link)">
                             <mat-icon mat-list-icon><span class="material-symbols-outlined">
                                 local_shipping
                                 </span></mat-icon>
