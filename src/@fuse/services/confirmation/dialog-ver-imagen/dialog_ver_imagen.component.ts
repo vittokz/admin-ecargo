@@ -16,6 +16,9 @@ import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation
                 .mat-dialog-container {
                     padding: 0 !important;
                 }
+                img{
+                    max-height: 700px;
+                }
             }
         `
     ],
