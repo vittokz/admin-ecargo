@@ -18,13 +18,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
+import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
 
 
 @NgModule({
     declarations: [
         FuseConfirmationDialogComponent,
         DialogComponent,
-        DialogDetalleServiceComponent
+        DialogDetalleServiceComponent,
+        DialogEditarServiceComponent
     ],
     imports     : [
         MatButtonModule,

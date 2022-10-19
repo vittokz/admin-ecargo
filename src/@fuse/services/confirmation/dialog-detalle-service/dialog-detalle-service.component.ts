@@ -4,6 +4,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
+import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
 import { MapServiciosService } from 'app/shared/services/map-services.service';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
 import { environment } from 'environments/environment';
@@ -102,18 +103,33 @@ export class DialogDetalleServiceComponent implements OnInit {
     latOrigen: number;
     lngDestino: number;
     latDestino: number;
+    uidDriver: string='';
+    latitudDriver: number;
+    longitudDriver: number;
     /**
      * Constructor
      */
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,
-        private mapServiciosService: MapServiciosService
+        private mapServiciosService: MapServiciosService,
+        private driversService: DriversFirebaseService
     ) {
+
+        this.uidDriver= data['users_info'].driver_info.uid;
+       
         this.lngOrigen= data['addresses_info'].delivery_address.position._long;
         this.latOrigen= data['addresses_info'].delivery_address.position._lat;
 
         this.lngDestino= data['addresses_info'].pickup_address.position._long;
         this.latDestino= data['addresses_info'].pickup_address.position._lat;
+    }
+    getDriver(uidDriver: string): void {
+        this.driversService.getDriverById(uidDriver).subscribe(
+        (driver)=>{
+            this.latitudDriver=driver['current_location'].geopoint._lat;
+            this.longitudDriver=driver['current_location'].geopoint._long;
+            this.crearMarcador(this.longitudDriver,this.latitudDriver, 'blue');
+        });
     }
     ngOnInit(): void {
         (Mapboxgl as any).accessToken = environment.mapBox.tokenMapBox;
@@ -121,29 +137,28 @@ export class DialogDetalleServiceComponent implements OnInit {
             container: 'mapa-mapbox',
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [this.lngOrigen,this.latOrigen],
-            zoom: 7,
+            zoom: 5,
         });
         const url = environment.mapBox.api + '/' + this.lngOrigen + ',' + this.latOrigen + ';' + this.lngDestino + ',' + this.latDestino + '?' +
         'alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=' + environment.mapBox.tokenMapBox;
         this.mapServiciosService.consultaApiMapa(url).subscribe((resp)=>{
-            console.log(resp);
             this.mapServiciosService.pintarMapa(resp.routes[0],this.mapa);
 
         });
-        this.crearMarcador(this.lngOrigen,this.latOrigen);
+        this.getDriver(this.uidDriver);
+         this.crearMarcador(this.lngOrigen,this.latOrigen);
          this.crearMarcador(this.lngDestino,this.latDestino);
-
     }
 
-    crearMarcador(lng: number, lat: number): void{
+    crearMarcador(lng: number, lat: number, color: string='red'): void{
         const marker = new Mapboxgl.Marker({
-            color: 'red',
+            color: color,
             draggable: true
         })
         .setLngLat([lng,lat])
         .addTo(this.mapa);
         marker.on('drag',()=>{
-            console.log(marker.getLngLat());
+
         });
     }
 

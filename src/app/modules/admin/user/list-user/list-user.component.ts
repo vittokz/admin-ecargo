@@ -90,7 +90,6 @@ export class ListUserComponent implements OnInit, AfterViewInit {
                     wallet: user.payload.doc.data()['wallet'],
                 });
             });
-            console.log('this.infoUsers',this.infoUsers);
             this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.infoUsers);
             this.dataSource.paginator = this.paginator;

@@ -15,7 +15,6 @@ export class MapServiciosService {
     }
 
     pintarMapa(route: Route, mapa: Mapboxgl.Map): void {
-      console.log(route);
         const coords = route.geometry.coordinates;
         const bounds = new LngLatBounds();
         coords.forEach(([lng, lat]) => {

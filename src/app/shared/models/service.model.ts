@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface IService {
     no?: number;
+    id?: string;
     addresses_info: AddressesInfo;
     service_track: ServiceTrack;
     payment_details: PaymentDetails;

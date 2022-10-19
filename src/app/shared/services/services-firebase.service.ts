@@ -23,13 +23,23 @@ export class ServicesFirebaseService {
         return this.afs.collection('services').doc(documentIdUser).valueChanges();
     }
     //Actualiza un servicio segun su ID
-    async updateService(documentId: string, data: any) {
-        await this.afs.collection('services').doc(documentId).update({
-            'profile_info.names': data['names'],
-            'profile_info.last_names': data['last_names'],
-            'profile_info.email': data['email'],
-            'profile_info.phone': data['phone'],
-            'enable': data['enable'],
+    async updateService(documentIdService: string, dataDriver: any) {
+        await this.afs.collection('services').doc(documentIdService).update({
+            'users_info.driver_info.name': dataDriver['profile_info'].names + ' ' +dataDriver['profile_info'].last_names,
+            'users_info.driver_info.emg_phone1': dataDriver['profile_info'].emg_phone1,
+            'users_info.driver_info.emg_phone2': dataDriver['profile_info'].emg_phone2,
+            'users_info.driver_info.email': dataDriver['profile_info'].email,
+            'users_info.driver_info.phone': dataDriver['profile_info'].phone,
+            'users_info.driver_info.photo_url': dataDriver['profile_info'].photo_url,
+            'users_info.driver_info.uid': dataDriver['id'],
+        });
+        return 'success';
+    }
+
+     //Actualiza estado de un servicio segun su ID
+     async updateStatusService(documentIdService: string, newStatus: number) {
+        await this.afs.collection('services').doc(documentIdService).update({
+            'status': newStatus
         });
         return 'success';
     }

@@ -56,7 +56,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             this.paramUrl = { ...params.keys, ...params };
         });
       
-        this.getServices(2);
+        this.getServices(10);
         this.config();
     }
     config(): void {
@@ -96,6 +96,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             resp.forEach((service, index) => {
                 this.infoServices.push({
                     no: index + 1,
+                    id: service.payload.doc.id,
                     addresses_info:
                         service.payload.doc.data()['addresses_info'],
                     cancelled_details:
@@ -133,15 +134,18 @@ export class DataTableComponent implements OnInit, AfterViewInit {
                     },
                 });
             });
-             this.nuevaDataFiltaradaServices =[];
-         
-            this.infoServices.forEach((service)=>{
-                console.log(service.status);
-                if(service.status===estado){
-                    this.nuevaDataFiltaradaServices.push(service);
-                }
-            });
-            console.log('this.nuevaDataFiltaradaServices',this.nuevaDataFiltaradaServices);
+            this.nuevaDataFiltaradaServices =[];
+            if(estado===10){
+                this.nuevaDataFiltaradaServices =this.infoServices;
+            }
+            else{
+                this.infoServices.forEach((service)=>{
+                    if(service.status===estado){
+                        this.nuevaDataFiltaradaServices.push(service);
+                    }
+                });
+            }
+            
             this.dataSource = null;
             this.dataSource = new MatTableDataSource(this.nuevaDataFiltaradaServices);
             this.dataSource.paginator = this.paginator;
@@ -165,6 +169,15 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             );
     }
 
+     //editar  servicio
+     editarServicio(service): void {
+        const dialogRef =
+            this._fuseConfirmationService.openDialogEditarServicio(
+                service,
+                'editar-servicio'
+            );
+    }
+
     //recuperar el estado del servicio
     getStatus(service): any {
         const resp = this.servicesService.getStatus(service);
@@ -172,7 +185,6 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     }
 
     asignarEstado(estado): void{
-        console.log(estado.srcElement.outerText);
         if(estado.srcElement.outerText==='Programados'){
             this.getServices(6);
         }
@@ -184,6 +196,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
         }
         else if(estado.srcElement.outerText==='Perdidos'){
             this.getServices(9);
+        }
+        else if(estado.srcElement.outerText==='Todos'){
+            this.getServices(10);
         }
     }
 }
