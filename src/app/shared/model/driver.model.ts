@@ -28,3 +28,9 @@ export interface Profile {
     email: string,
     photo_url: string,
 }
+export interface Documnets {
+    files: any[],
+    name: string,
+    status: number,
+    type: string
+}

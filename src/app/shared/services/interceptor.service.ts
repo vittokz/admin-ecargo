@@ -34,7 +34,7 @@ import { AuthFirebaseService } from './auth-firebase.service';
           },
         });
       }
-      console.log('paso por el interceptor',token);
+      // console.log('paso por el interceptor',token);
   
       return next.handle(request).pipe(
         catchError((err: HttpErrorResponse) => {

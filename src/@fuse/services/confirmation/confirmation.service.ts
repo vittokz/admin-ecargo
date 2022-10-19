@@ -7,6 +7,7 @@ import { DialogComponent } from './dialog-user/dialog-user.component';
 import { IUser } from 'app/shared/models/user.model';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
+import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
 
 @Injectable()
 export class FuseConfirmationService
@@ -96,10 +97,19 @@ export class FuseConfirmationService
             width: '1000px',
         });
     }
+    openVerImagen(config: any, tipoAccion: number): MatDialogRef<VerImage>{                
+        const driverConfig = merge({tipoAccion}, this._driverConfig, config);
+        return this._matDialog.open(VerImage, {
+            autoFocus   : false,
+            disableClose: !driverConfig.dismissible,
+            data        : driverConfig,
+            panelClass  : 'fuse-confirmation-dialog-panel'
+        });
+
+    }
     openDriver(config: any, tipoAccion: string): MatDialogRef<DialogDrivers>
     {                        
-        const driverConfig = merge({}, this._driverConfig, config);
-
+        const driverConfig = merge({}, this._driverConfig, config);        
         // Open the dialog
         return this._matDialog.open(DialogDrivers, {
             autoFocus   : false,

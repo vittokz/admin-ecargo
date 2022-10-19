@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { DocumentsComponent } from './document-drivers/documents/documents.component';
 import { DriverRoutingModule } from './driver-rounting.module';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -30,6 +31,7 @@ import { DriverRoutingModule } from './driver-rounting.module';
     MatPaginatorModule,
     MatInputModule,
     MatButtonModule,
+    MatCardModule,
     MatGridListModule,
     MatRippleModule,
     MatTabsModule,

@@ -110,7 +110,7 @@
                     <form class="example-form">                                                            
                             <div class="photovehicle">
                                 <div>
-                                    <carousel>
+                                <carousel *ngIf="images[element.no-1]['path'] != ''">
                                         <div class="carousel-cell">
                                             <img src="{{ dataDrivers[element.no-1]['vehicle_info']['photos_urls'][0] }}">
                                         </div>
@@ -129,32 +129,32 @@
                             </div>
                             <div class="photovehicle">
                                 <button mat-raised-button color="primary"
-                                routerLink="documents"       
+                                routerLink="documents"  [queryParams]="{data: element.id}"     
                                 >Documentos</button>
                             </div>                            
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>type</mat-label>
-                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['type'] }}">
+                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['type'] ? dataDrivers[element.no-1]['vehicle_info']['type'] :'No existe informacion'  }}">
                             </mat-form-field>                    
                         <table class="example-full-width" cellspacing="0"><tr>
                             <td><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Brand</mat-label>
-                            <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['brand'] }}">
+                            <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['brand'] ? dataDrivers[element.no-1]['vehicle_info']['brand'] : 'No existe informacion'}}">
                             </mat-form-field></td>
                             <td><mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Plate</mat-label>
-                            <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['plate'] }}">
+                            <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['plate'] ? dataDrivers[element.no-1]['vehicle_info']['plate']: 'No existe informacion' }}">
                             </mat-form-field></td>
                         </tr></table>
                         
                         <table class="example-full-width" cellspacing="0"><tr>
                             <td><mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Model</mat-label>
-                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['modelo'] }}">
+                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['modelo'] ? dataDrivers[element.no-1]['vehicle_info']['modelo'] : 'No existe informacion'}}">
                             </mat-form-field></td>
                             <td><mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Color</mat-label>
-                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['color'] }}">
+                                <input matInput disabled value="{{ dataDrivers[element.no-1]['vehicle_info']['color'] ? dataDrivers[element.no-1]['vehicle_info']['color'] : 'No existe informacion' }}">
                             </mat-form-field></td>
                         </tr></table>              
                         

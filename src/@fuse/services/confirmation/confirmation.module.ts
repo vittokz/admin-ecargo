@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
+import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
         FuseConfirmationDialogComponent,
         DialogComponent,
         DialogDetalleServiceComponent,
-        DialogDrivers
+        DialogDrivers,
+        VerImage
     ],
     imports     : [
         MatButtonModule,

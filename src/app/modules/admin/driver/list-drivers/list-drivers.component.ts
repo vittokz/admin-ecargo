@@ -11,6 +11,7 @@ import {  MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DialogDrivers } from '@fuse/services/confirmation/dialog-drivers/dialog_drivers.component';
 import _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-drivers',
@@ -48,11 +49,16 @@ export class ListDriversComponent implements OnInit{
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     private _fuseConfirmationService: FuseConfirmationService,
+    private route: ActivatedRoute
   ){           
     this.getDrivers();
   }
   ngOnInit(): void {         
-
+    this.route.queryParams.subscribe(
+      params => {
+        this.data =  params['data'];        
+      }
+    )
   }
   
 
@@ -81,9 +87,9 @@ export class ListDriversComponent implements OnInit{
               verticalPosition: 'bottom',
           });
       }
-  });
-    
+  });    
   }
+  
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DialogDrivers, {
       width: '250px',
@@ -104,10 +110,10 @@ export class ListDriversComponent implements OnInit{
       this.infoDrivers = [];
       this.dataDrivers = [];
       resp.forEach((driver, index)=>{  
-        this.dataDrivers.push(driver.payload.doc.data()); 
-        this.images.push({
-          path: driver.payload.doc.data()['vehicle_info']['photos_urls']
-        });
+        this.dataDrivers.push(driver.payload.doc.data());                   
+          this.images.push({
+            path: driver.payload.doc.data()['vehicle_info']['photos_urls'] ? driver.payload.doc.data()['vehicle_info']['photos_urls']: ''
+          });              
         this.infoDrivers.push({
           no: index+1,
           id: driver.payload.doc.id,          
@@ -119,9 +125,7 @@ export class ListDriversComponent implements OnInit{
         });        
       })
       this.dataSource = new MatTableDataSource<Drivers>(this.infoDrivers);
-      this.dataSource.paginator = this.paginator;
-      console.log(this.images);
-      
+      this.dataSource.paginator = this.paginator; 
     });
   }
   getHistoryServices(idDriver: string ){
