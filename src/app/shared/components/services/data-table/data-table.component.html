@@ -39,19 +39,19 @@
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="deliveryAddress">
                         <th mat-header-cell *matHeaderCellDef>
-                            DIRECCIÓN ORIGEN
+                           DIRECCIÓN ORIGEN
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{
-                                element.addresses_info.delivery_address.address
-                            }}
+                            {{ element.addresses_info.pickup_address.address }}
+                           
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="deliveryCity">
                         <th mat-header-cell *matHeaderCellDef>CIUDAD ORIGEN</th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.delivery_address.city }}
+                            {{ element.addresses_info.pickup_address.city }}
+                           
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
@@ -60,7 +60,9 @@
                             DIRECCIÓN DESTINO
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.pickup_address.address }}
+                           {{
+                                element.addresses_info.delivery_address.address
+                            }}
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
@@ -69,7 +71,7 @@
                             CIUDAD DESTINO
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.pickup_address.city }}
+                            {{ element.addresses_info.delivery_address.city }}
                         </td>
                     </ng-container>
 
@@ -171,16 +173,16 @@
                             DIRECCIÓN ORIGEN
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{
-                                element.addresses_info.delivery_address.address
-                            }}
+                            {{ element.addresses_info.pickup_address.address }}
+                            
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="deliveryCity">
                         <th mat-header-cell *matHeaderCellDef>CIUDAD ORIGEN</th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.delivery_address.city }}
+                            {{ element.addresses_info.pickup_address.city }}
+                           
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
@@ -189,7 +191,9 @@
                             DIRECCIÓN DESTINO
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.pickup_address.address }}
+                            {{
+                                element.addresses_info.delivery_address.address
+                            }}
                         </td>
                     </ng-container>
                     <!-- Symbol Column -->
@@ -198,7 +202,7 @@
                             CIUDAD DESTINO
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.addresses_info.pickup_address.city }}
+                            {{ element.addresses_info.delivery_address.city }}
                         </td>
                     </ng-container>
 
@@ -513,6 +517,18 @@
                                 <mat-icon
                                     class="icon-stylo-ver"
                                     [svgIcon]="'heroicons_outline:eye'"
+                                ></mat-icon>
+                            </button>
+                            <button
+                                matTooltip="Eliminar servicio"
+                                matTooltipPosition="left"
+                                mat-raised-button
+                                class="btn-stylo-eliminar"
+                                (click)="eliminarServicio(row)"
+                            >
+                                <mat-icon
+                                    class="icon-stylo-ver"
+                                    [svgIcon]="'heroicons_outline:x'"
                                 ></mat-icon>
                             </button>
                         </td>

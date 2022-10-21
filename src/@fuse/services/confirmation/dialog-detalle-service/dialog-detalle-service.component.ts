@@ -116,7 +116,6 @@ export class DialogDetalleServiceComponent implements OnInit {
     ) {
 
         this.uidDriver= data['users_info'].driver_info.uid;
-       
         this.lngOrigen= data['addresses_info'].delivery_address.position._long;
         this.latOrigen= data['addresses_info'].delivery_address.position._lat;
 

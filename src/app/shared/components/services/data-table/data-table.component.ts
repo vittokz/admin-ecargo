@@ -169,6 +169,15 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             );
     }
 
+    eliminarServicio(service): void{
+        const dialogRef =
+        this._fuseConfirmationService.openEliminarServicio(
+            service,
+            'eliminar-servicio'
+        );
+        
+    }
+
      //editar  servicio
      editarServicio(service): void {
         const dialogRef =

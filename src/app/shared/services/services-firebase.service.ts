@@ -33,6 +33,10 @@ export class ServicesFirebaseService {
             'users_info.driver_info.photo_url': dataDriver['profile_info'].photo_url,
             'users_info.driver_info.uid': dataDriver['id'],
         });
+
+        await this.afs.collection('drivers').doc(dataDriver['id']).update({
+            'busy': true,
+        });
         return 'success';
     }
 

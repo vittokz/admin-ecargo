@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
+import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialog-eliminar-service.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-edi
         FuseConfirmationDialogComponent,
         DialogComponent,
         DialogDetalleServiceComponent,
-        DialogEditarServiceComponent
+        DialogEditarServiceComponent,
+        DialogEliminarServicioComponent
     ],
     imports     : [
         MatButtonModule,
