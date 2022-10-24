@@ -12,6 +12,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DataTableComponent } from './components/services/data-table/data-table.component';
@@ -31,7 +32,8 @@ import { DataTableComponent } from './components/services/data-table/data-table.
         MatSnackBarModule,
         MatCardModule,
         MatExpansionModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCheckboxModule
     ],
     exports: [
         CommonModule,
@@ -49,7 +51,8 @@ import { DataTableComponent } from './components/services/data-table/data-table.
         MatCardModule,
         MatExpansionModule,
         MatTabsModule,
-        DataTableComponent
+        DataTableComponent,
+        MatCheckboxModule
     ],
     declarations: [
     DataTableComponent

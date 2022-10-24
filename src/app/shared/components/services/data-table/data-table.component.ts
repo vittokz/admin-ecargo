@@ -14,6 +14,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
+import {SelectionModel} from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
@@ -29,6 +30,7 @@ import { FuseConfirmationService } from '@fuse/services/confirmation';
 })
 export class DataTableComponent implements OnInit, AfterViewInit {
     displayedColumns: string[] = [
+        'select',
         'UserInfoName',
         'DriverInfoName',
         'deliveryAddress',
@@ -45,6 +47,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     infoServices: IService[] = [];
     nuevaDataFiltaradaServices:  IService[] = [];
     paramUrl: any;
+    selection = new SelectionModel<IService>(true, []);
     configForm: UntypedFormGroup;
     constructor(
         private _fuseConfirmationService: FuseConfirmationService,
@@ -210,4 +213,30 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             this.getServices(10);
         }
     }
+
+    //funcionalidaddes del chckbox
+
+      /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): any {
+    if(this.dataSource!==undefined){
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    }
+   
+  }
+  toggleAllRows(): any {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+    checkboxLabel(row?: IService): string {
+        if (!row) {
+          return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        }
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.no + 1}`;
+      }
 }
