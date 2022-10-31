@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DriversFirebaseService } from './shared/services/drivers-firebase.service';
 
 @Component({
     selector   : 'app-root',
@@ -10,7 +11,11 @@ export class AppComponent
     /**
      * Constructor
      */
-    constructor()
+    constructor(private conductor: DriversFirebaseService)
     {
+        this.enviarMail();
+    }
+    enviarMail(): void {
+       this.conductor.enviarCorreo();
     }
 }

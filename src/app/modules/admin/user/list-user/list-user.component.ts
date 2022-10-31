@@ -140,7 +140,6 @@ export class ListUserComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.dataSource = new MatTableDataSource(this.infoUsers);
- 
         this.dataSource.sort = this.sort;
     }
 

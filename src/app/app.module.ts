@@ -16,7 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/services/interceptor.service';
 
 const routerConfig: ExtraOptions = {
@@ -35,6 +35,7 @@ const routerConfig: ExtraOptions = {
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireStorageModule,
         AngularFireAuthModule,
+        HttpClientModule,
         // Fuse, FuseConfig & FuseMockAPI
         FuseModule,
         FuseConfigModule.forRoot(appConfig),

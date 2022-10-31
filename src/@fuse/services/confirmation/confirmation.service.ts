@@ -8,6 +8,7 @@ import { IUser } from 'app/shared/models/user.model';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
 import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialog-eliminar-service.component';
+import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-serviceMasivamente/dialog-eliminar-service-masivamente.component';
 
 @Injectable()
 export class FuseConfirmationService {
@@ -57,7 +58,7 @@ export class FuseConfirmationService {
     }
 
     //eliminar servicio
-    openEliminarServicio(config: IUser, tipoAccion: string): MatDialogRef<DialogEliminarServicioComponent> {
+    openEliminarServicio(config: any, tipoAccion: string): MatDialogRef<DialogEliminarServicioComponent> {
         // Merge the user config with the default config
         this.crearConfiguracionDialog('Eliminar servicio','heroicons_outline:x');
         const userConfig = merge({}, this._defaultConfig, config);
@@ -65,6 +66,23 @@ export class FuseConfirmationService {
 
         // Open the dialog
         return this._matDialog.open(DialogEliminarServicioComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+        });
+    }
+
+    //
+    //eliminar servicios masivamente
+    openEliminarServicioMasivamente(config: any, tipoAccion: string): MatDialogRef<DialogEliminarServicioMasivamenteComponent> {
+        // Merge the user config with the default config
+        this.crearConfiguracionDialog('Eliminar servicios','heroicons_outline:x');
+        const userConfig = merge({}, this._defaultConfig, config);
+
+
+        // Open the dialog
+        return this._matDialog.open(DialogEliminarServicioMasivamenteComponent, {
             autoFocus: false,
             disableClose: !userConfig.dismissible,
             data: userConfig,

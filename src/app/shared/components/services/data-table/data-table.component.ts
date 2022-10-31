@@ -1,3 +1,5 @@
+/* eslint-disable one-var */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable prefer-const */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -14,7 +16,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
@@ -23,6 +25,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
     selector: 'app-data-table',
     templateUrl: './data-table.component.html',
@@ -45,20 +49,26 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     dataSource: MatTableDataSource<IService>;
     infoServices: IService[] = [];
-    nuevaDataFiltaradaServices:  IService[] = [];
+    nuevaDataFiltaradaServices: IService[] = [];
     paramUrl: any;
+    messageEliminacionMasiva: string =
+        'Se eliminaron los servicios seleccionados correctamente.';
+    messageDataVacia: string = 'No hay servicios seleccionados';
+    listCheckSeleccionados: IService[] = [];
     selection = new SelectionModel<IService>(true, []);
     configForm: UntypedFormGroup;
     constructor(
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: UntypedFormBuilder,
         private route: ActivatedRoute,
+        private _snackBar: MatSnackBar,
+        private http: HttpClient,
         private servicesService: ServicesFirebaseService
     ) {
         this.route.queryParamMap.subscribe((params) => {
             this.paramUrl = { ...params.keys, ...params };
         });
-      
+
         this.getServices(10);
         this.config();
     }
@@ -85,12 +95,15 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             dismissible: true,
         });
     }
-    ngOnInit(): void {      }
+    ngOnInit(): void {
+        
+    }
+    
 
     ngAfterViewInit(): void {
         if (this.paramUrl.params.id) {
         } else {
-          //  this.getServices(this.estado);
+            //  this.getServices(this.estado);
         }
     }
     getServices(estado): void {
@@ -137,20 +150,21 @@ export class DataTableComponent implements OnInit, AfterViewInit {
                     },
                 });
             });
-            this.nuevaDataFiltaradaServices =[];
-            if(estado===10){
-                this.nuevaDataFiltaradaServices =this.infoServices;
-            }
-            else{
-                this.infoServices.forEach((service)=>{
-                    if(service.status===estado){
+            this.nuevaDataFiltaradaServices = [];
+            if (estado === 10) {
+                this.nuevaDataFiltaradaServices = this.infoServices;
+            } else {
+                this.infoServices.forEach((service) => {
+                    if (service.status === estado) {
                         this.nuevaDataFiltaradaServices.push(service);
                     }
                 });
             }
-            
+
             this.dataSource = null;
-            this.dataSource = new MatTableDataSource(this.nuevaDataFiltaradaServices);
+            this.dataSource = new MatTableDataSource(
+                this.nuevaDataFiltaradaServices
+            );
             this.dataSource.paginator = this.paginator;
         });
     }
@@ -172,17 +186,15 @@ export class DataTableComponent implements OnInit, AfterViewInit {
             );
     }
 
-    eliminarServicio(service): void{
-        const dialogRef =
-        this._fuseConfirmationService.openEliminarServicio(
+    eliminarServicio(service): void {
+        const dialogRef = this._fuseConfirmationService.openEliminarServicio(
             service,
             'eliminar-servicio'
         );
-        
     }
 
-     //editar  servicio
-     editarServicio(service): void {
+    //editar  servicio
+    editarServicio(service): void {
         const dialogRef =
             this._fuseConfirmationService.openDialogEditarServicio(
                 service,
@@ -196,47 +208,89 @@ export class DataTableComponent implements OnInit, AfterViewInit {
         return resp;
     }
 
-    asignarEstado(estado): void{
-        if(estado.srcElement.outerText==='Programados'){
+    asignarEstado(estado): void {
+        if (estado.srcElement.outerText === 'Programados') {
             this.getServices(6);
-        }
-        else if(estado.srcElement.outerText==='Activos'){
+        } else if (estado.srcElement.outerText === 'Activos') {
             this.getServices(2);
-        }
-        else if(estado.srcElement.outerText==='Cancelados'){
+        } else if (estado.srcElement.outerText === 'Cancelados') {
             this.getServices(8);
-        }
-        else if(estado.srcElement.outerText==='Perdidos'){
+        } else if (estado.srcElement.outerText === 'Perdidos') {
             this.getServices(9);
-        }
-        else if(estado.srcElement.outerText==='Todos'){
+        } else if (estado.srcElement.outerText === 'Todos') {
             this.getServices(10);
         }
     }
 
     //funcionalidaddes del chckbox
 
-      /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected(): any {
-    if(this.dataSource!==undefined){
-        const numSelected = this.selection.selected.length;
-        const numRows = this.dataSource.data.length;
-        return numSelected === numRows;
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected(): any {
+        if (this.dataSource !== undefined) {
+            const numSelected = this.selection.selected.length;
+            const numRows = this.dataSource.data.length;
+            return numSelected === numRows;
+        }
     }
-   
-  }
-  toggleAllRows(): any {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
+    toggleAllRows(): any {
+        if (this.isAllSelected()) {
+            this.selection.clear();
+            return;
+        }
+        this.selection.clear();
+        this.selection.select(...this.dataSource.data);
     }
-
-    this.selection.select(...this.dataSource.data);
-  }
     checkboxLabel(row?: IService): string {
         if (!row) {
-          return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.no + 1}`;
-      }
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+            row.no + 1
+        }`;
+    }
+
+    seleccionarCheck(data: IService, event): void {
+        console.log(event.checked);
+        if (event.checked === true) {
+            this.listCheckSeleccionados.push(data);
+        } else if (event.checked === false) {
+            this.listCheckSeleccionados.forEach((item, index) => {
+                if (item.no === data['no']) {
+                    this.listCheckSeleccionados.splice(index, 1);
+                }
+            });
+        }
+        this.selection.toggle(data);
+    }
+
+    //metodo para eliminar masivamente
+    eliminarMasivamente(): void {
+        if (this.listCheckSeleccionados.length > 0) {
+            const dialogRef =
+                this._fuseConfirmationService.openEliminarServicioMasivamente(
+                    this.listCheckSeleccionados,
+                    'eliminar-servicio'
+                );
+            dialogRef.afterClosed().subscribe((result) => {
+                if (result === 'confirmed') {
+                    this.listCheckSeleccionados.forEach((item) => {
+                        this.servicesService.deleteServiceById(item.id);
+                    });
+                    this._snackBar.open(this.messageEliminacionMasiva, '', {
+                        duration: 2000,
+                        panelClass: ['mat-toolbar', 'mat-primary'],
+                        horizontalPosition: 'right',
+                        verticalPosition: 'bottom',
+                    });
+                }
+            });
+        } else {
+            this._snackBar.open(this.messageDataVacia, '', {
+                duration: 2000,
+                panelClass: ['mat-toolbar', 'mat-primary'],
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+            });
+        }
+    }
 }

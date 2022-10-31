@@ -20,6 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
 import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialog-eliminar-service.component';
+import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-serviceMasivamente/dialog-eliminar-service-masivamente.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialo
         DialogComponent,
         DialogDetalleServiceComponent,
         DialogEditarServiceComponent,
-        DialogEliminarServicioComponent
+        DialogEliminarServicioComponent,
+        DialogEliminarServicioMasivamenteComponent
     ],
     imports     : [
         MatButtonModule,
