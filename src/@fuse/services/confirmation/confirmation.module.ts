@@ -20,6 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
 import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
+import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
         DialogComponent,
         DialogDetalleServiceComponent,
         DialogDrivers,
-        VerImage
+        VerImage,
+        DialogRejectDocument
     ],
     imports     : [
         MatButtonModule,

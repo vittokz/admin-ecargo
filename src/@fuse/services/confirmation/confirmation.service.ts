@@ -8,6 +8,7 @@ import { IUser } from 'app/shared/models/user.model';
 import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-detalle-service.component';
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
 import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
+import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
 
 @Injectable()
 export class FuseConfirmationService
@@ -36,6 +37,27 @@ export class FuseConfirmationService
     private _driverConfig: FuseConfirmationConfig = {
         title      : 'Confirm action',
         message    : '',
+        icon       : {
+            show : true,
+            name : 'heroicons_outline:exclamation',
+            color: 'warn'
+        },
+        actions    : {
+            confirm: {
+                show : true,
+                label: 'Confirm',
+                color: 'warn'
+            },
+            cancel : {
+                show : true,
+                label: 'Cancel'
+            }
+        },
+        dismissible: false
+    };
+    private _rejectDocumentConfig: FuseConfirmationConfig = {
+        title      : 'MOTIVO DE RECHAZO',
+        message    : 'Esta seguro de realizar esta accion?',
         icon       : {
             show : true,
             name : 'heroicons_outline:exclamation',
@@ -100,6 +122,16 @@ export class FuseConfirmationService
     openVerImagen(config: any, tipoAccion: number): MatDialogRef<VerImage>{                
         const driverConfig = merge({tipoAccion}, this._driverConfig, config);
         return this._matDialog.open(VerImage, {
+            autoFocus   : false,
+            disableClose: !driverConfig.dismissible,
+            data        : driverConfig,
+            panelClass  : 'fuse-confirmation-dialog-panel'
+        });
+
+    }
+    openRejectDocument(config: any): MatDialogRef<DialogRejectDocument>{
+        const driverConfig = merge({}, this._rejectDocumentConfig, config);
+        return this._matDialog.open(DialogRejectDocument, {
             autoFocus   : false,
             disableClose: !driverConfig.dismissible,
             data        : driverConfig,

@@ -4,7 +4,7 @@
             <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="backClicked()">
                 <mat-icon>arrow_back</mat-icon>
             </button>
-            <button mat-raised-button>Finalizar</button>          
+            <button mat-raised-button (click)="finalDoc()">Finalizar</button>          
         </div>
          <div class="cards">
             <div class="card" *ngFor="let item of data; let i = index">
@@ -12,6 +12,7 @@
                     <div class="type">
                         <h1>{{ item.name }}</h1>
                         <p>{{ item.type }}</p>
+                        <p *ngIf="item.expiry_date" class="expiracion"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="info"></mat-icon>  {{ item.expiry_date | date }}</p>
                         
                     </div>
                     <div class="images">
@@ -21,7 +22,7 @@
                 </div>
                 <div class="des">
                     <button mat-raised-button color="primary">Aprobar</button>
-                    <button mat-raised-button color="warn">Rechazar</button>
+                    <button mat-raised-button color="warn" (click)="rechazar_document(item)">Rechazar</button>
                 </div>
             </div>
          </div>
