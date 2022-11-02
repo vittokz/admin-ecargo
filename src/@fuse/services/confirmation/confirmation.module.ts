@@ -21,6 +21,9 @@ import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-d
 import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
 import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialog-eliminar-service.component';
 import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-serviceMasivamente/dialog-eliminar-service-masivamente.component';
+import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
+import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
+import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-se
         DialogDetalleServiceComponent,
         DialogEditarServiceComponent,
         DialogEliminarServicioComponent,
-        DialogEliminarServicioMasivamenteComponent
+        DialogEliminarServicioMasivamenteComponent,
+        DialogDrivers,
+        VerImage,
+        DialogRejectDocument
     ],
     imports     : [
         MatButtonModule,
@@ -45,7 +51,8 @@ import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-se
         MatSelectModule,
         FuseHighlightModule,
         MatDialogModule,
-        SharedModule
+        SharedModule,
+        CommonModule
     ],
     providers   : [
         FuseConfirmationService

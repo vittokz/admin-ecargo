@@ -29,6 +29,7 @@
     "@ngneat/transloco": "4.1.1",
     "@types/angularfire": "^0.8.34",
     "@types/mapbox-gl": "^2.7.6",
+    "angular-responsive-carousel": "^2.1.2",
     "apexcharts": "3.35.5",
     "crypto-js": "3.3.0",
     "firebase": "^7.0 || ^8.0",

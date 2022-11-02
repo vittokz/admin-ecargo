@@ -9,10 +9,75 @@ import { DialogDetalleServiceComponent } from './dialog-detalle-service/dialog-d
 import { DialogEditarServiceComponent } from './dialog-editar-service/dialog-editar-service.component';
 import { DialogEliminarServicioComponent } from './dialog-eliminar-service/dialog-eliminar-service.component';
 import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-serviceMasivamente/dialog-eliminar-service-masivamente.component';
+import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
+import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
+import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
 
 @Injectable()
 export class FuseConfirmationService {
-    private _defaultConfig: FuseConfirmationConfig = {};
+    private _defaultConfig: FuseConfirmationConfig = {
+        title: 'Confirm action',
+        message: 'Are you sure you want to confirm this action?',
+        icon: {
+            show: true,
+            name: 'heroicons_outline:exclamation',
+            color: 'warn',
+        },
+        actions: {
+            confirm: {
+                show: true,
+                label: 'Confirm',
+                color: 'warn',
+            },
+            cancel: {
+                show: true,
+                label: 'Cancel',
+            },
+        },
+        dismissible: false,
+    };
+    private _driverConfig: FuseConfirmationConfig = {
+        title: 'Confirm action',
+        message: '',
+        icon: {
+            show: true,
+            name: 'heroicons_outline:exclamation',
+            color: 'warn',
+        },
+        actions: {
+            confirm: {
+                show: true,
+                label: 'Confirm',
+                color: 'warn',
+            },
+            cancel: {
+                show: true,
+                label: 'Cancel',
+            },
+        },
+        dismissible: false,
+    };
+    private _rejectDocumentConfig: FuseConfirmationConfig = {
+        title: 'MOTIVO DE RECHAZO',
+        message: 'Esta seguro de realizar esta accion?',
+        icon: {
+            show: true,
+            name: 'heroicons_outline:exclamation',
+            color: 'warn',
+        },
+        actions: {
+            confirm: {
+                show: true,
+                label: 'Confirm',
+                color: 'warn',
+            },
+            cancel: {
+                show: true,
+                label: 'Cancel',
+            },
+        },
+        dismissible: false,
+    };
 
     /**
      * Constructor
@@ -26,11 +91,20 @@ export class FuseConfirmationService {
     open(config: IUser, tipoAccion: string): MatDialogRef<DialogComponent> {
         // Merge the user config with the default config
         if (tipoAccion === 'editar-user') {
-            this.crearConfiguracionDialog('Editar Usuario','heroicons_outline:pencil');
+            this.crearConfiguracionDialog(
+                'Editar Usuario',
+                'heroicons_outline:pencil'
+            );
         } else if (tipoAccion === 'agregar-user') {
-            this.crearConfiguracionDialog('Agregar Usuario','heroicons_outline:user-add');
+            this.crearConfiguracionDialog(
+                'Agregar Usuario',
+                'heroicons_outline:user-add'
+            );
         } else if (tipoAccion === 'eliminar-user') {
-            this.crearConfiguracionDialog('Eliminar Usuario','heroicons_outline:x');
+            this.crearConfiguracionDialog(
+                'Eliminar Usuario',
+                'heroicons_outline:x'
+            );
         }
         const userConfig = merge({}, this._defaultConfig, config);
 
@@ -42,8 +116,14 @@ export class FuseConfirmationService {
             panelClass: 'fuse-confirmation-dialog-panel',
         });
     }
-    openDialogDetalleServicio(config: IUser, tipoAccion: string): MatDialogRef<DialogDetalleServiceComponent> {
-        this.crearConfiguracionDialog('Ver detalle del servicio','heroicons_outline:eye');
+    openDialogDetalleServicio(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogDetalleServiceComponent> {
+        this.crearConfiguracionDialog(
+            'Ver detalle del servicio',
+            'heroicons_outline:eye'
+        );
         const userConfig = merge({}, this._defaultConfig, config);
 
         // Open the dialog
@@ -58,11 +138,16 @@ export class FuseConfirmationService {
     }
 
     //eliminar servicio
-    openEliminarServicio(config: any, tipoAccion: string): MatDialogRef<DialogEliminarServicioComponent> {
+    openEliminarServicio(
+        config: any,
+        tipoAccion: string
+    ): MatDialogRef<DialogEliminarServicioComponent> {
         // Merge the user config with the default config
-        this.crearConfiguracionDialog('Eliminar servicio','heroicons_outline:x');
+        this.crearConfiguracionDialog(
+            'Eliminar servicio',
+            'heroicons_outline:x'
+        );
         const userConfig = merge({}, this._defaultConfig, config);
-
 
         // Open the dialog
         return this._matDialog.open(DialogEliminarServicioComponent, {
@@ -75,24 +160,38 @@ export class FuseConfirmationService {
 
     //
     //eliminar servicios masivamente
-    openEliminarServicioMasivamente(config: any, tipoAccion: string): MatDialogRef<DialogEliminarServicioMasivamenteComponent> {
+    openEliminarServicioMasivamente(
+        config: any,
+        tipoAccion: string
+    ): MatDialogRef<DialogEliminarServicioMasivamenteComponent> {
         // Merge the user config with the default config
-        this.crearConfiguracionDialog('Eliminar servicios','heroicons_outline:x');
+        this.crearConfiguracionDialog(
+            'Eliminar servicios',
+            'heroicons_outline:x'
+        );
         const userConfig = merge({}, this._defaultConfig, config);
 
-
         // Open the dialog
-        return this._matDialog.open(DialogEliminarServicioMasivamenteComponent, {
-            autoFocus: false,
-            disableClose: !userConfig.dismissible,
-            data: userConfig,
-            panelClass: 'fuse-confirmation-dialog-panel',
-        });
+        return this._matDialog.open(
+            DialogEliminarServicioMasivamenteComponent,
+            {
+                autoFocus: false,
+                disableClose: !userConfig.dismissible,
+                data: userConfig,
+                panelClass: 'fuse-confirmation-dialog-panel',
+            }
+        );
     }
 
     //editar servicio
-    openDialogEditarServicio(config: IUser, tipoAccion: string): MatDialogRef<DialogEditarServiceComponent> {
-        this.crearConfiguracionDialog('Editar servicio','heroicons_outline:eye');
+    openDialogEditarServicio(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogEditarServiceComponent> {
+        this.crearConfiguracionDialog(
+            'Editar servicio',
+            'heroicons_outline:eye'
+        );
         const userConfig = merge({}, this._defaultConfig, config);
 
         // Open the dialog
@@ -105,14 +204,13 @@ export class FuseConfirmationService {
             width: '1000px',
         });
     }
-    crearConfiguracionDialog(title: string,icono: string): void {
+    crearConfiguracionDialog(title: string, icono: string): void {
         this._defaultConfig = {
             title: title,
             message: '',
             icon: {
                 show: true,
-                name:
-                    icono,
+                name: icono,
                 color: title !== 'Editar Usuario' ? 'warn' : 'success',
             },
             actions: {
@@ -128,5 +226,35 @@ export class FuseConfirmationService {
             },
             dismissible: true,
         };
+    }
+
+    //DRIVER
+    openVerImagen(config: any, tipoAccion: number): MatDialogRef<VerImage> {
+        const driverConfig = merge({ tipoAccion }, this._driverConfig, config);
+        return this._matDialog.open(VerImage, {
+            autoFocus: false,
+            disableClose: !driverConfig.dismissible,
+            data: driverConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+        });
+    }
+    openRejectDocument(config: any): MatDialogRef<DialogRejectDocument> {
+        const driverConfig = merge({}, this._rejectDocumentConfig, config);
+        return this._matDialog.open(DialogRejectDocument, {
+            autoFocus: false,
+            disableClose: !driverConfig.dismissible,
+            data: driverConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+        });
+    }
+    openDriver(config: any, tipoAccion: string): MatDialogRef<DialogDrivers> {
+        const driverConfig = merge({}, this._driverConfig, config);
+        // Open the dialog
+        return this._matDialog.open(DialogDrivers, {
+            autoFocus: false,
+            disableClose: !driverConfig.dismissible,
+            data: driverConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+        });
     }
 }

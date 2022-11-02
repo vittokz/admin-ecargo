@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
     providedIn: 'root',
 })
 export class DriversFirebaseService {
+    listRespuesta = [];
     constructor(private afs: AngularFirestore, private http: HttpClient) {}
 
     //Traer todos los conductores
@@ -37,13 +38,39 @@ export class DriversFirebaseService {
     //enviar mail conductor
     enviarCorreo() {
         const formData = new FormData();
-            formData.append('email','vittorio15@hotmail.com' );
-            formData.append('usuario', 'VITTORIO CASSETTA');
-            formData.append('descripcion','pruebas envio');
-        this.http.post<any>(
-            'https://dalelapata.narino.gov.co/ApiDalelapata/adopcionPostulacion/envioMail.php',
-            formData).subscribe((resp)=>{
-            console.log('respuesta email:',resp);
+        formData.append('email', 'vittorio15@hotmail.com');
+        formData.append('usuario', 'VITTORIO CASSETTA');
+        formData.append('descripcion', 'pruebas envio');
+        this.http
+            .post<any>(
+                'https://dalelapata.narino.gov.co/ApiDalelapata/adopcionPostulacion/envioMail.php',
+                formData
+            )
+            .subscribe((resp) => {
+                console.log('respuesta email:', resp);
+            });
+    }
+
+    public getDrivers() {
+        return this.afs.collection('drivers').snapshotChanges();
+    }
+
+    async updateDrivers(documentId: string, data: any) {
+        await this.afs.collection('drivers').doc(documentId).update({
+            'profile_info.names': data['names'],
+            'profile_info.last_names': data['last_names'],
+            'profile_info.phone': data['phone'],
+            'profile_info.emg_phone1': data['emg_phone1'],
+            'profile_info.emg_phone2': data['emg_phone2'],
+            'profile_info.email': data['email'],
         });
+        return 'success';
+    }
+
+    async deleteDriverById(documentId: string) {
+        return this.afs.collection('drivers').doc(documentId).delete();
+    }
+    public getDriversServices() {
+        return this.afs.collection('services').snapshotChanges();
     }
 }
