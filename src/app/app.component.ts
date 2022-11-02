@@ -16,6 +16,6 @@ export class AppComponent
         this.enviarMail();
     }
     enviarMail(): void {
-       this.conductor.enviarCorreo();
+      // this.conductor.enviarCorreo();
     }
 }
