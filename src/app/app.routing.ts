@@ -80,5 +80,21 @@ export const appRoutes: Route[] = [
             import('app/modules/admin/services/services.module').then(
                 m => m.ServicesModule
             ),
+    },
+    {
+        path: 'billetera',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/billetera/billetera.module').then(
+                m => m.BilleteraModule
+            ),
     }
+
 ];

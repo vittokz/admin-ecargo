@@ -5,6 +5,7 @@ import { CreateServiceComponent } from './create-service/create-service.componen
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { ListServicesAllComponent } from './list-services-all/list-services-all.component';
+import { ServiceIdComponent } from './service-id/service-id.component';
 
 const serviceRoutes: Route[] = [
     {
@@ -12,8 +13,8 @@ const serviceRoutes: Route[] = [
         component: ListServicesComponent,
     },
     {
-        path: 'create-service',
-        component: CreateServiceComponent,
+        path: 'serviceId',
+        component: ServiceIdComponent,
     },
     {
       path: 'all-services',
@@ -26,6 +27,7 @@ const serviceRoutes: Route[] = [
         ListServicesComponent,
         CreateServiceComponent,
         ListServicesAllComponent,
+        ServiceIdComponent,
     ],
     imports: [RouterModule.forChild(serviceRoutes), CommonModule, SharedModule],
 })

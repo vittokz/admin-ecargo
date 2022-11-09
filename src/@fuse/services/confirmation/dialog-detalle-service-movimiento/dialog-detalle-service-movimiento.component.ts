@@ -6,13 +6,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
 import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
 import { MapServiciosService } from 'app/shared/services/map-services.service';
-import { PaymentService } from 'app/shared/services/payments.service';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
 import { environment } from 'environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
 @Component({
-    selector: 'dialog-user',
-    templateUrl: './dialog-detalle-service.component.html',
+    selector: 'dialog-detalle-service-movimiento',
+    templateUrl: './dialog-detalle-service-movimiento.component.html',
     styles: [
         `
             .fuse-confirmation-dialog-panel {
@@ -97,7 +96,7 @@ import * as Mapboxgl from 'mapbox-gl';
     ],
     encapsulation: ViewEncapsulation.None,
 })
-export class DialogDetalleServiceComponent implements OnInit {
+export class DialogDetalleServiceMovimientoComponent implements OnInit {
     panelOpenState = false;
     mapa: Mapboxgl.Map;
     lngOrigen: number;
@@ -105,32 +104,29 @@ export class DialogDetalleServiceComponent implements OnInit {
     lngDestino: number;
     latDestino: number;
     uidDriver: string='';
-    uidClient: string='';
     latitudDriver: number;
     longitudDriver: number;
-    listPayments = [];
     /**
      * Constructor
      */
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,
         private mapServiciosService: MapServiciosService,
-        private driversService: DriversFirebaseService,
-     ) {
-    console.log('dataaaaa---',data);
-        this.uidClient= data['users_info'].client_info.uid;
-        this.uidDriver= data['users_info'].driver_info.uid;
-        this.lngOrigen= data['addresses_info'].delivery_address.position._long;
-        this.latOrigen= data['addresses_info'].delivery_address.position._lat;
+        private driversService: DriversFirebaseService
+    ) {
+        console.log(data);
+        this.uidDriver= data[0]['users_info'].driver_info.uid;
+        this.lngOrigen= data[0]['addresses_info'].delivery_address.position._long;
+        this.latOrigen= data[0]['addresses_info'].delivery_address.position._lat;
 
-        this.lngDestino= data['addresses_info'].pickup_address.position._long;
-        this.latDestino= data['addresses_info'].pickup_address.position._lat;
+        this.lngDestino= data[0]['addresses_info'].pickup_address.position._long;
+        this.latDestino= data[0]['addresses_info'].pickup_address.position._lat;
     }
     getDriver(uidDriver: string): void {
         this.driversService.getDriverById(uidDriver).subscribe(
         (driver)=>{
-            this.latitudDriver=driver['current_location'].geopoint._lat ? driver['current_location'].geopoint._lat : this.latDestino;
-            this.longitudDriver=driver['current_location'].geopoint._long ? driver['current_location'].geopoint._long : this.lngDestino ;
+            this.latitudDriver=driver['current_location'].geopoint._lat;
+            this.longitudDriver=driver['current_location'].geopoint._long;
             this.crearMarcador(this.longitudDriver,this.latitudDriver, 'blue');
         });
     }
@@ -164,7 +160,6 @@ export class DialogDetalleServiceComponent implements OnInit {
 
         });
     }
-
 
     getStatus(status): any {
         let respuesta;

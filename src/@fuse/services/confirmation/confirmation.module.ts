@@ -24,6 +24,9 @@ import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-se
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
 import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
 import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
+import { DialogEditarWalletComponent } from './dialog-editar-wallet/dialog-editar-wallet.component';
+import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/dialog-movimientos-wallet.component';
+import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_doc
         DialogEliminarServicioMasivamenteComponent,
         DialogDrivers,
         VerImage,
-        DialogRejectDocument
+        DialogRejectDocument,
+        DialogEditarWalletComponent,
+        DialogMovimientosWalletComponent,
+        DialogDetalleServiceMovimientoComponent
     ],
     imports     : [
         MatButtonModule,

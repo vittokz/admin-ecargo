@@ -34,7 +34,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/services/all-services',
         roles: [],
     },
+    {
+        id: 'Billetera',
+        title: 'Billetera',
+        type: 'basic',
+        icon: 'heroicons_outline:credit-card',
+        link: '/billetera',
+        roles: [],
+    },
 ];
+
 
 export const compactNavigation: FuseNavigationItem[] = [];
 export const futuristicNavigation: FuseNavigationItem[] = [];

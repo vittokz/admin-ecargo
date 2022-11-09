@@ -12,6 +12,9 @@ import { DialogEliminarServicioMasivamenteComponent } from './dialog-eliminar-se
 import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_document.component';
 import { DialogDrivers } from './dialog-drivers/dialog_drivers.component';
 import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
+import { DialogEditarWalletComponent } from './dialog-editar-wallet/dialog-editar-wallet.component';
+import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/dialog-movimientos-wallet.component';
+import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 
 @Injectable()
 export class FuseConfirmationService {
@@ -137,6 +140,28 @@ export class FuseConfirmationService {
         });
     }
 
+    //detalle service segun movimiento biletera seleccionado
+    openDialogDetalleServicioMovimiento(
+        config: any,
+        tipoAccion: string
+    ): MatDialogRef<DialogDetalleServiceMovimientoComponent> {
+        this.crearConfiguracionDialog(
+            'Ver detalle del servicio',
+            'heroicons_outline:eye'
+        );
+        const userConfig = merge({}, this._defaultConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogDetalleServiceMovimientoComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+            height: '800px',
+            width: '1000px',
+        });
+    }
+
     //eliminar servicio
     openEliminarServicio(
         config: any,
@@ -202,6 +227,49 @@ export class FuseConfirmationService {
             panelClass: 'fuse-confirmation-dialog-panel',
             height: '800px',
             width: '1000px',
+        });
+    }
+
+    //editar wallet/billetera
+    openDialogEditarBilletera(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogEditarWalletComponent> {
+        this.crearConfiguracionDialog(
+            'Editar Wallet-Billetera',
+            'heroicons_outline:pencil'
+        );
+        const userConfig = merge({}, this._defaultConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogEditarWalletComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+            height: '400px',
+            width: '600px',
+        });
+    }
+    //visualizar movientos de wallet/billetera
+    openDialogMovimientosBilletera(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogMovimientosWalletComponent> {
+        this.crearConfiguracionDialog(
+            'Lista de Movimientos Wallet-Billetera',
+            'heroicons_outline:eye'
+        );
+        const userConfig = merge({}, this._defaultConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogMovimientosWalletComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+            height: '500px',
+            width: '980px',
         });
     }
     crearConfiguracionDialog(title: string, icono: string): void {

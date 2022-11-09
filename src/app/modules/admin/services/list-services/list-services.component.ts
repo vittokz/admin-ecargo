@@ -19,6 +19,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { PaymentService } from 'app/shared/services/payments.service';
 @Component({
     selector: 'app-list-services',
     templateUrl: './list-services.component.html',
@@ -48,6 +49,7 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: UntypedFormBuilder,
         private route: ActivatedRoute,
+        private paymentService: PaymentService,
         private servicesService: ServicesFirebaseService
     ) {
         this.route.queryParamMap.subscribe((params) => {
@@ -151,4 +153,6 @@ export class ListServicesComponent implements OnInit, AfterViewInit {
         const resp = this.servicesService.getStatus(this.infoServices);
         return resp;
     }
+
+  
 }

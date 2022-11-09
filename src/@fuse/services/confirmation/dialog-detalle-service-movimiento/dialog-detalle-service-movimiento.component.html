@@ -76,14 +76,17 @@
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title
-                    >{{ data["users_info"].client_info.name }}
+                    >{{ data[0]["users_info"].client_info.name }}
                 </mat-card-title>
                 <mat-card-subtitle
                     >Usuario que solicito el servicio</mat-card-subtitle
                 >
             </mat-card-header>
             <div class="content-image p-5">
-                <div id="mapa-mapbox"></div>
+                <div id="mapa-mapbox">
+
+                </div>
+               
             </div>
             <mat-card-content>
                 <mat-accordion>
@@ -93,27 +96,27 @@
                     >
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                DATOS DEL USUARIO Y EL CONDUCTOR
+                               DATOS DEL USUARIO Y EL CONDUCTOR
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="order-items">
                             <div>
                                 <h1 class="order-items__title">Usuario</h1>
                                 <strong>Nombre</strong> :
-                                {{ data["users_info"].client_info.name }}<br />
+                                {{ data[0]["users_info"].client_info.name }}<br />
                                 <strong>Teléfono</strong> :
-                                {{ data["users_info"].client_info.phone }}<br />
+                                {{ data[0]["users_info"].client_info.phone }}<br />
                                 <strong>Emáil</strong> :
-                                {{ data["users_info"].client_info.email }}<br />
+                                {{ data[0]["users_info"].client_info.email }}<br>
                             </div>
                             <div>
                                 <h1 class="order-items__title">Conductor</h1>
                                 <strong>Nombre</strong> :
-                                {{ data["users_info"].driver_info.name }}<br />
+                                {{ data[0]["users_info"].driver_info.name }}<br />
                                 <strong>Teléfono</strong> :
-                                {{ data["users_info"].driver_info.phone }}<br />
+                                {{ data[0]["users_info"].driver_info.phone }}<br />
                                 <strong>Emáil</strong> :
-                                {{ data["users_info"].driver_info.email }}<br />
+                                {{ data[0]["users_info"].driver_info.email }}<br>
                             </div>
                         </div>
                     </mat-expansion-panel>
@@ -131,15 +134,15 @@
                                 <h1 class="order-items__title">Origen</h1>
                                 <strong>Pais</strong> :
                                 {{
-                                    data["addresses_info"].delivery_address
+                                    data[0]["addresses_info"].delivery_address
                                         .country
                                 }}<br />
                                 <strong>Ciudad</strong> :
-                                {{ data["addresses_info"].delivery_address.city
+                                {{ data[0]["addresses_info"].delivery_address.city
                                 }}<br />
                                 <strong>Dirección</strong> :
                                 {{
-                                    data["addresses_info"].delivery_address
+                                    data[0]["addresses_info"].delivery_address
                                         .address
                                 }}
                             </div>
@@ -147,15 +150,15 @@
                                 <h1 class="order-items__title">Destino</h1>
                                 <strong>Pais</strong> :
                                 {{
-                                    data["addresses_info"].pickup_address
+                                    data[0]["addresses_info"].pickup_address
                                         .country
                                 }}<br />
                                 <strong>Ciudad</strong> :
-                                {{ data["addresses_info"].pickup_address.city
+                                {{ data[0]["addresses_info"].pickup_address.city
                                 }}<br />
                                 <strong>Dirección</strong> :
                                 {{
-                                    data["addresses_info"].pickup_address
+                                    data[0]["addresses_info"].pickup_address
                                         .address
                                 }}
                             </div>
@@ -174,124 +177,55 @@
                             <div>
                                 <h1 class="order-items__title">Tipo</h1>
                                 <strong>Tipo Vehiculo</strong> :
-                                {{ data["service_details"].vehicle_type }}<br />
+                                {{ data[0]["service_details"].vehicle_type }}<br />
                                 <strong>Tipo Carga</strong> :
-                                {{ data["service_details"].service_type }}<br />
+                                {{ data[0]["service_details"].service_type }}<br />
                                 <strong>Observaciones</strong> :
-                                {{ data["service_details"].observacion }}
+                                {{ data[0]["service_details"].observacion }}
                             </div>
                             <div>
                                 <h1 class="order-items__title">Detalles</h1>
                                 <strong>Volumen</strong> :{{
-                                    data["service_details"].volume
+                                    data[0]["service_details"].volume
                                 }}<br />
                                 <strong>Altura</strong> :
-                                {{ data["service_details"].weight }}<br />
+                                {{ data[0]["service_details"].weight }}<br />
                                 <strong>Distancia</strong> :
-                                {{
-                                    data["service_details"].total_distance
-                                }}
-                                KM<br />
+                                {{ data[0]["service_details"].total_distance }} KM<br>
                                 <strong>Estado</strong> :
-                                {{ getStatus(data["status"]) }}
+                                {{ getStatus(data["status"]) }} 
                             </div>
                         </div>
                     </mat-expansion-panel>
-
                     <mat-expansion-panel
-                        (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false"
-                    >
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                INFORMACIÓN DE PAGOS
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div *ngIf="data['payment_details'].status===2 else sinStatus" class="order-items">
-                           
-                            <div>
-                                <h1 class="order-items__title">
-                                    Lista de Pagos realizados
-                                </h1>
-                                    <strong>Primera Cuota</strong><br>
-                                    <strong>Metodo de pago</strong>
-                                    {{ data["payment_details"].first_cuote.payment_method }}<br />
-                                    <strong>Valor</strong> :
-                                    {{ data["payment_details"].first_cuote.wallet  | currency
-                                    : "CAD"
-                                    : "symbol-narrow"
-                                    : "4.0-0" }}<br />
-                                    <strong>Cuota</strong> :
-                                    {{ data["payment_details"].first_cuote.cuote }} %<br />
-                         
-                            </div>
-                            <div>
-                                <h1 class="order-items__title">Otros Pagos</h1>
-                              
-                            </div>
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            INFORMACIÓN DEL VEHICULO
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="order-items">
+                        <div>
+                            <h1 class="order-items__title">Vehiculo</h1>
+                            <strong>Marca</strong> :
+                            {{ data[0]["vehicle_info"].brand }}<br />
+                            <strong>Color</strong> :
+                            {{ data[0]["vehicle_info"].color }}<br />
+                            <strong>Modelo</strong> :
+                            {{ data[0]["vehicle_info"].modelo }}
                         </div>
-                        <ng-template #sinStatus>
-                            <div>
-                                <h1 class="order-items__title">
-                                   No hay registro de pagos.
-                                </h1>                         
-                            </div>
-                        </ng-template>
-                    </mat-expansion-panel>
-
-                    <mat-expansion-panel
-                        (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false"
-                    >
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                EVIDENCIAS REGISTRADAS
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="order-items">
-                            <div>
-                              <h1 class="order-items__title">Lista de evidencias</h1>
-                              <a target="_blank" href="{{ evidencia }}" *ngFor="let evidencia of data['service_details'].pickup_evidence; let i=index">
-                                Ver Imagen {{i+1}}: <br>
-                              </a>
-                                    <br />
-                            </div>
-                            <div>
-                                <h1 class="order-items__title"></h1>
-                              
-                            </div>
+                        <div>
+                            <h1 class="order-items__title"></h1>
+                            <strong>Placa</strong> :{{
+                                data[0]["vehicle_info"].plate
+                            }}<br />
+                            <strong>Tipo</strong> :
+                            {{ data[0]["vehicle_info"].type }}<br />
                         </div>
-                    </mat-expansion-panel>
-
-                    <mat-expansion-panel
-                        (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false"
-                    >
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                INFORMACIÓN DEL VEHICULO
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="order-items">
-                            <div>
-                                <h1 class="order-items__title">Vehiculo</h1>
-                                <strong>Marca</strong> :
-                                {{ data["vehicle_info"].brand }}<br />
-                                <strong>Color</strong> :
-                                {{ data["vehicle_info"].color }}<br />
-                                <strong>Modelo</strong> :
-                                {{ data["vehicle_info"].modelo }}
-                            </div>
-                            <div>
-                                <h1 class="order-items__title"></h1>
-                                <strong>Placa</strong> :{{
-                                    data["vehicle_info"].plate
-                                }}<br />
-                                <strong>Tipo</strong> :
-                                {{ data["vehicle_info"].type }}<br />
-                            </div>
-                        </div>
-                    </mat-expansion-panel>
+                    </div>
+                </mat-expansion-panel>
                 </mat-accordion>
 
                 <!-- <div class="order-items">
