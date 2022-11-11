@@ -1,0 +1,23 @@
+.content-users {
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    &__botton {
+        display: flex;
+        justify-content: flex-end;
+    }
+    &__banner{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.table,tr,.th{
+    border: 1px solid gray;
+
+}
+
+.scroll {
+    width: 100%;
+    overflow: auto;
+}

@@ -83,7 +83,6 @@ export class DialogMovimientosWalletComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        console.log(this.data);
         this.getPaymentsByIdUser();
     }
     getPaymentsByIdUser(): void {
@@ -92,26 +91,12 @@ export class DialogMovimientosWalletComponent implements OnInit {
             .subscribe((payment) => {
                 this.listPayments = [];
                 payment.forEach((dato, index) => {
-                    console.log(dato.payload.doc.data());
+
                     var date = new Date(
                         dato.payload.doc.data()['payment_date']['seconds'] +
                             dato.payload.doc.data()['payment_date'][
                                 'nanoseconds'
                             ]
-                    );
-                    console.log(
-                        'Date: ' +
-                            date.getDate() +
-                            '/' +
-                            (date.getMonth() + 1) +
-                            '/' +
-                            date.getFullYear() +
-                            ' ' +
-                            date.getHours() +
-                            ':' +
-                            date.getMinutes() +
-                            ':' +
-                            date.getSeconds()
                     );
                     this.listPayments.push({
                         no: index + 1,
@@ -125,7 +110,6 @@ export class DialogMovimientosWalletComponent implements OnInit {
                         service_uid: dato.payload.doc.data()['service_uid'],
                     });
                 });
-                console.log(this.listPayments);
             });
     }
     irServicio(pagoSeleccionado): void {

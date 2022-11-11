@@ -95,6 +95,21 @@ export const appRoutes: Route[] = [
             import('app/modules/admin/billetera/billetera.module').then(
                 m => m.BilleteraModule
             ),
+    },
+    {
+        path: 'cargue-masivo',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/cargue-masivo/cargue-masivo.module').then(
+                m => m.CargueMasivoModule
+            ),
     }
 
 ];

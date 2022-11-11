@@ -28,13 +28,11 @@ export class DialogRejectDocument{
     toppingList: string[] = ['Vencido', 'Proximo a vencer', 'No Corresponde al vehiculo registrado', 'No Corresponde a la informacion del conductor', 'No existe información', 'No legal'];
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig, 
-        private serviceDriver: DriversFirebaseService              
-    ){  
-        console.log(data);                           
+        private serviceDriver: DriversFirebaseService
+    ){                        
     }
 
     enviar_data(){
-        console.log(this.listmotivoreject);
         this.serviceDriver.listRespuesta.push({
             'documento': this.data['name'],
             'motivos': this.listmotivoreject,

@@ -123,7 +123,6 @@ export class DialogEditarWalletComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.data);
         this.crearFormulario();
     }
 

@@ -42,6 +42,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/billetera',
         roles: [],
     },
+    {
+        id: 'Cargue-Masivo',
+        title: 'Cargue Masivo',
+        subtitle: 'Servicios',
+        type: 'basic',
+        icon: 'heroicons_outline:cloud-upload',
+        link: '/cargue-masivo',
+        roles: [],
+    },
 ];
 
 

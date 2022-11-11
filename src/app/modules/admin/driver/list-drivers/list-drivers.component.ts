@@ -126,7 +126,6 @@ export class ListDriversComponent implements OnInit{
     });
   }
   getHistoryServices(idDriver: string ): void{
-    console.log(idDriver);
     this.historyServices = [];
     let count = 0;
     const data = this.drivers.getDriversServices().subscribe((res) => {
@@ -138,7 +137,6 @@ export class ListDriversComponent implements OnInit{
           }
         }
       });
-      console.log(this.historyServices);
       this.historyServices.sort((a,b) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
     })
   }
@@ -176,7 +174,6 @@ export class ListDriversComponent implements OnInit{
     }
   }
   buttonDocument(driver): void{
-    console.log(driver);
   }
   editButton(): void{
     this.formPersonal.enable();

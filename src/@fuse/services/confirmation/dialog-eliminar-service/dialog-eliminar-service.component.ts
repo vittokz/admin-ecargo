@@ -47,7 +47,7 @@ export class DialogEliminarServicioComponent {
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,
         private servicesFirebaseServcice: ServicesFirebaseService
     ) {
-        console.log(data);
+
     }
 
     //METODO PARA ELIMINAR SERVICIO

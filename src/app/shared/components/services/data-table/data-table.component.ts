@@ -250,7 +250,6 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     }
 
     seleccionarCheck(data: IService, event): void {
-        console.log(event.checked);
         if (event.checked === true) {
             this.listCheckSeleccionados.push(data);
         } else if (event.checked === false) {

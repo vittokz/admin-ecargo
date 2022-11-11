@@ -65,9 +65,16 @@ export class AuthSignInComponent implements OnInit
         this.showAlert = false;
         const resp = this._authServiceFirebase.signIn(form.email, form.password);
         resp.then((token)=>{
-            this.tokenRecuperado= token;
+            if(token===undefined){
+                this._router.navigateByUrl('/login');
+            }
+            else{
+            this.tokenRecuperado= token['Aa'];
             this._authServiceFirebase.setTokenGenerado(this.tokenRecuperado);
+            this._authServiceFirebase.setUidUser(token['uid']);
             this._router.navigateByUrl('/home');
+            }
+
         });
         }
 }

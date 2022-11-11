@@ -80,21 +80,13 @@ export class DocumentsComponent implements OnInit {
           });
         });                           
       });
-      console.log(this.revisionDoc);
       this._userService.user$.subscribe((user) => {
         this.id = user.id;
         this.username = user.name;
-    });
-    console.log(this.id);
-    console.log(this.username);
-
-    
-      
+    }); 
   }
 
   verimagen(image: string, posicion: number){
-    console.log(image);
-    
     const dialogRef = this._fuseConfirmationService.openVerImagen(
       image, 
       posicion
@@ -102,7 +94,6 @@ export class DocumentsComponent implements OnInit {
     
   }
   finalDoc(){
-    console.log(this.serviceDriver.listRespuesta);
     
   }
   rechazar_document(data){

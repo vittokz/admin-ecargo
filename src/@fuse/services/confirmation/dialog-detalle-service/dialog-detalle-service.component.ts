@@ -117,7 +117,6 @@ export class DialogDetalleServiceComponent implements OnInit {
         private mapServiciosService: MapServiciosService,
         private driversService: DriversFirebaseService,
      ) {
-    console.log('dataaaaa---',data);
         this.uidClient= data['users_info'].client_info.uid;
         this.uidDriver= data['users_info'].driver_info.uid;
         this.lngOrigen= data['addresses_info'].delivery_address.position._long;

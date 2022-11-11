@@ -1,0 +1,73 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="border-2 border-2 border-gray-300 rounded-2xl">
+            <div class="content-users m-5">
+                <div class="content-users__banner">
+                    <h1 class="content-users__title">Cargue masivo de Servicios</h1>
+                </div>
+
+                <input type="file" class="file-input" accept=".xls,.xlsx"
+                (change)="onFileSelected($event)">
+         
+         <div class="file-upload">
+         
+            {{fileName || "Ningún archivo seleccionado"}}
+         
+             <!-- <button mat-mini-fab color="primary" class="upload-btn"
+               (click)="fileUpload.click()">
+                 <mat-icon>attach_file</mat-icon>
+             </button> -->
+         </div>
+         <div class="scroll">
+            <table class="table mt-10" *ngIf="addListServices.length>0" border="1">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">TIPO CARGA</th>
+                    <th scope="col">PESO</th>
+                    <th scope="col">VOLUMEN(cm3)</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">DIRECCION</th>
+                    <th scope="col">CIUDAD</th>
+                    <th scope="col">PAIS</th>
+                    <th scope="col">LATITUD</th>
+                    <th scope="col">LONGITUD</th>
+                    <th scope="col">DIRECCION DESTINO</th>
+                    <th scope="col">CIUDAD DESTINO</th>
+                    <th scope="col">PAIS DESTINO</th>
+                    <th scope="col">LATITUD DESTINO</th>
+                    <th scope="col">LONGITUD DESTINO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of addListServices">
+                    <th scope="row">1</th>
+                    <th>{{item.service_details.service_type}}</th>
+                    <th>{{item.service_details.volume}}</th>     
+                    <th>{{item.service_details.weight}}</th>
+                    <th></th>
+                    <th>{{item.addresses_info.delivery_address.address}}</th>
+                    <th>{{item.addresses_info.delivery_address.city}}</th>
+                    <th>{{item.addresses_info.delivery_address.country}}</th>
+                    <th>{{item.addresses_info.delivery_address.position.latitude}}</th>
+                    <th>{{item.addresses_info.delivery_address.position.longitude}}</th>
+                    <th>{{item.addresses_info.pickup_address.address}}</th>
+                    <th>{{item.addresses_info.pickup_address.city}}</th>
+                    <th>{{item.addresses_info.pickup_address.country}}</th>
+                    <th>{{item.addresses_info.pickup_address.position.latitude}}</th>
+                    <th>{{item.addresses_info.delivery_address.position.latitude}}</th>
+    
+    
+                  </tr>
+                </tbody>
+              </table>
+         </div>
+        
+    
+            </div>
+        </div>
+    </div>
+</div>
+

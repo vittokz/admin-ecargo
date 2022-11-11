@@ -20,7 +20,7 @@ export class AuthFirebaseService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) =>
-        result.user['Aa']
+        result.user
       )
       .catch((error) => {
         window.alert(error.message);
@@ -35,9 +35,21 @@ export class AuthFirebaseService {
   setTokenGenerado(token: string): void {
      localStorage.setItem('token',token);
   }
+  //Almacenar uid del usuario logueado
+  setUidUser(uidUser: string): void {
+    localStorage.setItem('uidUser',uidUser);
+ }
+ //devolver uid del usuario logueado
+ getUidUser(): any {
+  return localStorage.getItem('uidUser');
+}
 
   //eliminar el token de localStorage
   removeTokenGenerado(): void {
     localStorage.removeItem('token');
+ }
+   //eliminar dataservices de localStorage
+   removeDataServicesMasivo(): void {
+    localStorage.removeItem('dataMasiva');
  }
 }

@@ -49,7 +49,6 @@ export class ServiceIdComponent implements OnInit {
                             type: service['vehicle_info'].type ? service['vehicle_info'].type : 'Sin tipo',
                     }
                 });
-        console.log(this.infoService);
         // this.dataSource = null;
         // this.dataSource = new MatTableDataSource(this.infoServices);
         // this.dataSource.paginator = this.paginator;
