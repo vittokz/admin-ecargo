@@ -1,3 +1,7 @@
+<!-- <mat-form-field appearance="standard">
+    <mat-label>Buscar servicio</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+</mat-form-field> -->
 <mat-tab-group dynamicHeight (click)="asignarEstado($event)">
     <mat-tab label="Todos">
         <div class="content-users">
@@ -815,7 +819,4 @@ mat-flat-button
         </div>
     </mat-tab>
 </mat-tab-group>
-<mat-form-field appearance="standard">
-    <mat-label>Buscar servicio</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
-</mat-form-field>
+

@@ -9,7 +9,7 @@
                 </div>
 
                 <input type="file" class="file-input" accept=".xls,.xlsx"
-                (change)="onFileSelected($event)">
+                (change)="onFileSelected($event) " >
          
          <div class="file-upload">
          
@@ -63,6 +63,9 @@
                   </tr>
                 </tbody>
               </table>
+         </div>
+         <div *ngIf="estadoLecturaArchivo===false">
+            <strong>Error al cargar el archivo, intente nuevamente.</strong>
          </div>
         
     

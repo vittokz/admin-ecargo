@@ -35,6 +35,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         roles: [],
     },
     {
+        id: 'Servicios-activos',
+        title: 'Servicios Activos',
+        type: 'basic',
+        icon: 'heroicons_outline:globe',
+        link: '/services/actives',
+        roles: [],
+    },
+    {
         id: 'Billetera',
         title: 'Billetera',
         type: 'basic',
