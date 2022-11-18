@@ -15,6 +15,13 @@ import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation
 import { DriversFirebaseService } from 'app/shared/services/drivers-firebase.service';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
 
+export interface IData {
+    'dataChangeDriver'?: string;
+    'idDriver'?: string;
+    'idDriverNew'?: string;
+    'idServicio'?: string;
+};
+
 @Component({
     selector: 'dialog-editar-servicio',
     templateUrl: './dialog-editar-service.component.html',
@@ -111,6 +118,8 @@ export class DialogEditarServiceComponent implements OnInit {
     messageEstado: string = 'Estado del servicio actualizado correctamente.';
     selectedValue: string = 'Seleccione conductor';
     infoDriver = [];
+    motivoCambioDriver: string='';
+    infoAuxDriver = [];
     listEstados: any[] = [
         {
             name: 'Creado',
@@ -163,6 +172,7 @@ export class DialogEditarServiceComponent implements OnInit {
         private _snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig
     ) {
+        console.log(data);
     }
 
     ngOnInit(): void {
@@ -232,6 +242,26 @@ export class DialogEditarServiceComponent implements OnInit {
     }
 
     seleccionarDriver(dataDriver): void {
+        this.infoAuxDriver = dataDriver;
+    }
+
+    changueDriver(): void{
+        this.registrarCambioConductor();
+        this.registrarHistorialCambioConductor();
+    }
+    registrarHistorialCambioConductor(): void {
+        const date = new Date();
+        const fecha = date.getFullYear() + '-'+ (date.getMonth()+1) + '-'+ date.getUTCDate();
+        const data: IData = {
+           'dataChangeDriver': fecha,
+           'idDriver' : this.data['users_info'].driver_info.uid !==undefined ? this.data['users_info'].driver_info.uid : 'No tenia asignacion de conductor',
+           'idDriverNew':  this.infoAuxDriver['id'],
+           'idServicio':  this.data['id']
+        };
+       this.driverServiceFirebase.insertChangeDriver(data);
+    }
+    registrarCambioConductor(): void {
+        const dataDriver = this.infoAuxDriver;
         this.serviceServiceFirebase
             .updateService(this.data['id'], dataDriver)
             .then((resp) => {

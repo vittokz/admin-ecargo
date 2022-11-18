@@ -11,10 +11,9 @@
                 <input type="file" class="file-input" accept=".xls,.xlsx"
                 (change)="onFileSelected($event) " >
          
-         <div class="file-upload">
+         <div class="file-upload" *ngIf="fileName">
          
-            {{fileName || "Ningún archivo seleccionado"}}
-         
+          <strong>Se cargaron los registros correctamente.     </strong>    
              <!-- <button mat-mini-fab color="primary" class="upload-btn"
                (click)="fileUpload.click()">
                  <mat-icon>attach_file</mat-icon>

@@ -6,6 +6,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IData } from '@fuse/services/confirmation/dialog-editar-service/dialog-editar-service.component';
 
 @Injectable({
     providedIn: 'root',
@@ -71,5 +72,21 @@ export class DriversFirebaseService {
     }
     public getDriversServices() {
         return this.afs.collection('services').snapshotChanges();
+    }
+
+    //cambiar conductor a un servicio
+    async insertChangeDriver(data: IData) {
+        debugger;
+        return new Promise<any>((resolve, reject) => {
+            this.afs
+                .collection('change_drivers')
+                .add(data)
+                .then(
+                    (response) => 'success',
+                    (error) => {
+                        reject(error);
+                    }
+                );
+        });
     }
 }

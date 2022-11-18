@@ -132,8 +132,15 @@
                                   </mat-option>
                                 </mat-select>
                             </mat-form-field>
+                            <h1 class="order-items__title">Motivo del cambio</h1>
+                            <mat-form-field style="width: 350px !important" class="example-full-width" appearance="fill">
+                              <textarea [(ngModel)]="motivoCambioDriver" matInput placeholder=""></textarea> 
+                         
+                              </mat-form-field>
+                              <h1></h1>
+                              <button (click)="changueDriver()" mat-raised-button color="primary">Aceptar</button>
+                             
                         </div>
-                       
                     </div>
                 </mat-expansion-panel>
                     <mat-expansion-panel

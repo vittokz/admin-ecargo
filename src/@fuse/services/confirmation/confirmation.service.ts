@@ -135,8 +135,8 @@ export class FuseConfirmationService {
             disableClose: !userConfig.dismissible,
             data: userConfig,
             panelClass: 'fuse-confirmation-dialog-panel',
-            height: '800px',
-            width: '1000px',
+            height: '1200px',
+            width: '1500px',
         });
     }
 

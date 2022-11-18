@@ -59,6 +59,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/cargue-masivo',
         roles: [],
     },
+    {
+        id: 'reportes',
+        title: 'Reportes',
+        subtitle: '',
+        type: 'basic',
+        icon: 'heroicons_outline:document-report',
+        link: '/reportes',
+        roles: [],
+    },
 ];
 
 

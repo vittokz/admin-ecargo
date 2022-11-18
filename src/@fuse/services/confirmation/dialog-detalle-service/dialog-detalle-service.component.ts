@@ -91,7 +91,7 @@ import * as Mapboxgl from 'mapbox-gl';
             }
             #mapa-mapbox {
                 width: 100%;
-                height: 300px;
+                height: 600px;
             }
         `,
     ],

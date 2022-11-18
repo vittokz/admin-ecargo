@@ -110,6 +110,21 @@ export const appRoutes: Route[] = [
             import('app/modules/admin/cargue-masivo/cargue-masivo.module').then(
                 m => m.CargueMasivoModule
             ),
+    },
+    {
+        path: 'reportes',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/reportes/reportes.module').then(
+                m => m.ReportesModule
+            ),
     }
 
 ];

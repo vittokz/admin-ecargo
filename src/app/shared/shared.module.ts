@@ -16,6 +16,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DataTableComponent } from './components/services/data-table/data-table.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
     imports: [
         CommonModule,
@@ -33,7 +35,9 @@ import { DataTableComponent } from './components/services/data-table/data-table.
         MatCardModule,
         MatExpansionModule,
         MatTabsModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatMenuModule,
+        NgApexchartsModule
     ],
     exports: [
         CommonModule,
@@ -52,7 +56,9 @@ import { DataTableComponent } from './components/services/data-table/data-table.
         MatExpansionModule,
         MatTabsModule,
         DataTableComponent,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatMenuModule,
+        NgApexchartsModule
     ],
     declarations: [
     DataTableComponent
