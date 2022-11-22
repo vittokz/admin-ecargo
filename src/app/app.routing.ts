@@ -97,6 +97,21 @@ export const appRoutes: Route[] = [
             ),
     },
     {
+        path: 'promociones-bonos',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/promociones-bonos/promociones-bonos.module').then(
+                m => m.PromocionesBonosModule
+            ),
+    },
+    {
         path: 'cargue-masivo',
         canActivate: [],
         component: LayoutComponent,

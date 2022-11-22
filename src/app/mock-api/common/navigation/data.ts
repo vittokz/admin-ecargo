@@ -51,6 +51,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         roles: [],
     },
     {
+        id: 'Promociones',
+        title: 'Promociones',
+        subtitle: 'Cupones',
+        type: 'basic',
+        icon: 'heroicons_outline:newspaper',
+        link: '/promociones-bonos',
+        roles: [],
+    },
+    {
         id: 'Cargue-Masivo',
         title: 'Cargue Masivo',
         subtitle: 'Servicios',

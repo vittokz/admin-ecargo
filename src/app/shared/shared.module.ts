@@ -17,6 +17,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DataTableComponent } from './components/services/data-table/data-table.component';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
 import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
     imports: [
@@ -37,7 +40,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         MatTabsModule,
         MatCheckboxModule,
         MatMenuModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatDividerModule
     ],
     exports: [
         CommonModule,
@@ -58,7 +64,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         DataTableComponent,
         MatCheckboxModule,
         MatMenuModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatDividerModule
     ],
     declarations: [
     DataTableComponent

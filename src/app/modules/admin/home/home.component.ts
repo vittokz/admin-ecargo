@@ -68,4 +68,8 @@ export class HomeComponent implements OnInit {
     this.ruta.navigateByUrl('/reportes');
   }
 
+  irCupones(): void{
+    this.ruta.navigateByUrl('/promociones-bonos');
+  }
+
 }
