@@ -18,6 +18,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { DataTableComponent } from './components/services/data-table/data-table.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
     imports: [
         CommonModule,
@@ -37,7 +39,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         MatTabsModule,
         MatCheckboxModule,
         MatMenuModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        MatProgressSpinnerModule,
+        MatSelectModule
     ],
     exports: [
         CommonModule,
@@ -58,7 +62,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         DataTableComponent,
         MatCheckboxModule,
         MatMenuModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        MatProgressSpinnerModule,
+        MatSelectModule
     ],
     declarations: [
     DataTableComponent

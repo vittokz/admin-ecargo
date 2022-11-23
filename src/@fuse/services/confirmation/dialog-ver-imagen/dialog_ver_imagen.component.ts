@@ -28,8 +28,7 @@ export class VerImage
 {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig,                
-    ){  
-                           
+    ){                                    
     }   
 
 }
