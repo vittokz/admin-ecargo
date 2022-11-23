@@ -112,6 +112,21 @@ export const appRoutes: Route[] = [
             ),
     },
     {
+        path: 'payments',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/pagos/payments.module').then(
+                m => m.PaymentsModule
+            ),
+    },
+    {
         path: 'reportes',
         canActivate: [],
         component: LayoutComponent,
