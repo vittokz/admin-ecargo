@@ -15,7 +15,6 @@ import { VerImage } from './dialog-ver-imagen/dialog_ver_imagen.component';
 import { DialogEditarWalletComponent } from './dialog-editar-wallet/dialog-editar-wallet.component';
 import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/dialog-movimientos-wallet.component';
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
-import { DialogDetailsPayment } from './dialog-payment/dialog-payment.component';
 
 @Injectable()
 export class FuseConfirmationService {
@@ -48,21 +47,6 @@ export class FuseConfirmationService {
             name: 'heroicons_outline:exclamation',
             color: 'warn',
         },
-        actions: {
-            confirm: {
-                show: true,
-                label: 'Confirm',
-                color: 'warn',
-            },
-            cancel: {
-                show: true,
-                label: 'Cancel',
-            },
-        },
-        dismissible: false,
-    };
-    private _paymentConfig: FuseConfirmationConfig = {
-        title: 'Detalles del Pago',            
         actions: {
             confirm: {
                 show: true,
@@ -338,17 +322,6 @@ export class FuseConfirmationService {
             autoFocus: false,
             disableClose: !driverConfig.dismissible,
             data: driverConfig,
-            panelClass: 'fuse-confirmation-dialog-panel',
-        });
-    }
-    //Verdetallespago-servicio
-    openDetailsPayment(config: any, tipoAccion: string): MatDialogRef<DialogDetailsPayment> {
-        const paymentConfig = merge({}, this._paymentConfig, config);
-        // Open the dialog
-        return this._matDialog.open(DialogDetailsPayment, {
-            autoFocus: false,
-            disableClose: !paymentConfig.dismissible,
-            data: paymentConfig,
             panelClass: 'fuse-confirmation-dialog-panel',
         });
     }

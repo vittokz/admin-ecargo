@@ -27,7 +27,6 @@ import { DialogRejectDocument } from './dialog-reject-document/dialog_reject_doc
 import { DialogEditarWalletComponent } from './dialog-editar-wallet/dialog-editar-wallet.component';
 import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/dialog-movimientos-wallet.component';
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
-import { DialogDetailsPayment } from './dialog-payment/dialog-payment.component';
 
 
 @NgModule({
@@ -43,8 +42,7 @@ import { DialogDetailsPayment } from './dialog-payment/dialog-payment.component'
         DialogRejectDocument,
         DialogEditarWalletComponent,
         DialogMovimientosWalletComponent,
-        DialogDetalleServiceMovimientoComponent,
-        DialogDetailsPayment
+        DialogDetalleServiceMovimientoComponent
     ],
     imports     : [
         MatButtonModule,
