@@ -127,6 +127,21 @@ export const appRoutes: Route[] = [
             ),
     },
     {
+        path: 'ajustes-sistema',
+        canActivate: [],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        data: {
+            roles: [],
+        },
+        loadChildren: () =>
+            import('app/modules/admin/ajustes-sistema/ajustes-sistema.module').then(
+                m => m.AjustesSistemaModule
+            ),
+    },
+    {
         path: 'reportes',
         canActivate: [],
         component: LayoutComponent,

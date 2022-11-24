@@ -1,0 +1,120 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div class="bg-card">
+        <div
+            class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8 mt-5"
+        >
+            <!-- Project selector -->
+            <div
+                class="relative flex self-start pt-2 pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default"
+                matRipple
+            >
+                <div class="flex items-center">
+                    <div class="overflow-hidden">
+                        <div class="font-medium leading-6 truncate">
+                            Acciones
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center pl-2">
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:chevron-down'"
+                        ></mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="p-5 flex-auto border-t -mt-px pt-4 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto">
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0"
+            >
+                <!-- Summary -->
+                <div
+                    class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                >
+                    <div class="flex items-start justify-between">
+                        <div
+                            class="text-lg font-medium tracking-tight leading-6 truncate"
+                        >
+                            Vehiculos
+                        </div>
+                        <div class="ml-2 -mt-2 -mr-3">
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="summaryVehiculos"
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:dots-vertical'"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #summaryVehiculos="matMenu">
+                                <button mat-menu-item>Ir a vehiculos</button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div
+                            class="text-2xl sm:text-3xl mt-3 font-bold tracking-tight leading-none text-blue-500"
+                        >
+                            Modulo Vehiculos
+                        </div>
+                        <div
+                            class="flex items-baseline justify-center w-full mt-5 text-secondary"
+                        >
+                            <div class="text-md font-medium truncate">
+                                <mat-icon svgIcon="bus_alert"></mat-icon>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Overdue -->
+                <div
+                    class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                >
+                    <div class="flex items-start justify-between">
+                        <div
+                            class="text-lg font-medium tracking-tight leading-6 truncate"
+                        >
+                            Cargas
+                        </div>
+                        <div class="ml-2 -mt-2 -mr-3">
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="summaryUsuarios"
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:dots-vertical'"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #summaryUsuarios="matMenu">
+                                <button mat-menu-item>Ir a tipos de carga</button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div
+                            class="text-2xl sm:text-3xl mt-3 font-bold tracking-tight leading-none text-red-500"
+                        >
+                           Tipos de Carga
+                        </div>
+                        <div
+                            class="flex items-baseline justify-center w-full mt-5 text-secondary"
+                        >
+                            <div class="text-md font-medium truncate">
+                                <mat-icon svgIcon="domain"></mat-icon>
+                            </div>
+                            <div class="ml-1.5 text-lg font-semibold"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
