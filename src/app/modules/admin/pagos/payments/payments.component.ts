@@ -6,8 +6,10 @@ import { Ipayment } from 'app/shared/models/payment.model';
 import { ServicesFirebaseService } from 'app/shared/services/services-firebase.service';
 import { PaymentService } from 'app/shared/services/payments.service';
 import { IService } from 'app/shared/models/service.model';
+import { SharedModule } from 'app/shared/shared.module';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import {FormGroup, FormControl} from '@angular/forms';
 import moment from 'moment';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 @Component({
@@ -16,6 +18,10 @@ import { FuseConfirmationService } from '@fuse/services/confirmation';
   styleUrls: ['./payments.component.scss']
 })
 export class PaymentsComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  }); 
   displayedColumns: string[] = ['fecha', 'usuario', 'conductor', 'total', 'cuota', 'Mpago', 'estado' , 'acciones'];
   selected = 'option0';
   loading: boolean = false;  
@@ -23,6 +29,10 @@ export class PaymentsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Ipayment>;
+  indPagosE: number = 0;
+  indPagosD: number = 0;
+  porPagosE: number = 0;
+
   constructor(
     private payment: PaymentService,
     private servicesService: ServicesFirebaseService,
@@ -33,14 +43,15 @@ export class PaymentsComponent implements OnInit {
 
   ngOnInit(): void {
     
-  
   }
-
   cargarPayments(){
-    this.loading = true;
+    this.loading = true;    
     this.payment.getPayments().subscribe((resp) => {            
       this.misPagos = [];
-      resp.forEach((element) => {                
+      this.indPagosE = 0;
+      this.indPagosD = 0;
+
+      resp.forEach((element) => {                        
         this.misPagos.push({   
           id: element.payload.doc.id,   
           fecha: element.payload.doc.data()['payment_date'].toDate().toLocaleDateString(),  
@@ -52,7 +63,14 @@ export class PaymentsComponent implements OnInit {
           estado: element.payload.doc.data()['status'],
           servicio: element.payload.doc.data()['service_uid'],
         });
+        if (element.payload.doc.data()['transaction_data']['status'] == 'approved') {
+          this.indPagosE++;
+        }
+        if (element.payload.doc.data()['transaction_data']['status'] == 'rejected') {
+          this.indPagosD++;
+        }
       });
+      this.porPagosE = (this.misPagos.length / this.indPagosE) *100;
       
       this.misPagos.forEach((element, index)=>{
         this.servicesService.getServiceById(element.servicio).subscribe((elem: IService)=>{                                      
@@ -82,31 +100,47 @@ export class PaymentsComponent implements OnInit {
   ordenarXfechaDec(){
     this.misPagos.sort((a, b) => {
       return Number(moment(b.fecha, 'DD/MM/YYYY').format('x')) - Number(moment(a.fecha, 'DD/MM/YYYY').format('x'))
-     }); 
+     });
+    if (this.range.value.start != null && this.range.value.end != null) {
+      console.log('hoola');
+      
+      this.resetDate();
+    } 
   }
-    applyFilter(event: Event): void {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+  resetDate(){
+    this.range.controls.start.reset();
+    this.range.controls.end.reset();
+  }
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-      if (this.dataSource.paginator) {
-          this.dataSource.paginator.firstPage();
-      }  
+    if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+    }  
+  }
+  newRange(rango){        
+    let start = moment(rango.start).format('DD/MM/YYYY');
+    let end = moment(rango.end).format('DD/MM/YYYY');
+    this.dataSource = new MatTableDataSource(this.misPagos.filter(pago => (pago.fecha >= start && pago.fecha <= end && moment(rango.start).format('MM') == moment(pago.fecha, 'DD/MM/YYYY').format('MM') )));
+    this.dataSource.paginator = this.paginator;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }        
   }
   filterXdia(){
     let hoy = moment().format('DD/MM/YYYY');
-    
-    console.log('hoy', hoy);
-    this.dataSource =new MatTableDataSource(this.misPagos.filter(pago => pago.fecha == hoy));
+    this.dataSource = new MatTableDataSource(this.misPagos.filter(pago => pago.fecha == hoy));
     this.dataSource.paginator = this.paginator;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    this.ordenarXfechaDec();  
+    this.ordenarXfechaDec(); 
+
+        
   }
   filterXmes(){
-    let mes = moment().format('MM');
-    console.log(mes);   
-    
+    let mes = moment().format('MM');          
     this.dataSource =new MatTableDataSource(this.misPagos.filter(pago => moment(pago.fecha, 'DD/MM/YYYY').format('MM') == mes));
     this.dataSource.paginator = this.paginator;
     if (this.dataSource.paginator) {

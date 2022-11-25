@@ -9,3 +9,22 @@ export interface Ipayment {
     estado?: number;
     servicio?: string;
 }
+export interface PaymentDetails {
+    first_cuote?: {
+        amount?: number,
+        coupon?: number,
+        cuote?: string,
+        date?: string,
+        payment_method?: string,
+        wallet?: number
+    },
+    second_cuote?: {
+        amount?: number,
+        coupon?: number,
+        cuote?: string,
+        date?: string,
+        payment_method?: string,
+        wallet?: number
+    },
+    status?: number
+}

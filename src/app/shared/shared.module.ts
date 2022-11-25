@@ -20,6 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
     imports: [
         CommonModule,
@@ -41,7 +43,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatMenuModule,
         NgApexchartsModule,
         MatProgressSpinnerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDatepickerModule,
+        MatChipsModule
     ],
     exports: [
         CommonModule,
@@ -64,7 +68,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatMenuModule,
         NgApexchartsModule,
         MatProgressSpinnerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDatepickerModule,
+        MatChipsModule
     ],
     declarations: [
     DataTableComponent

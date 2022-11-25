@@ -1,53 +1,98 @@
 .fuse-confirmation-dialog-panel {
     @screen md {
-        @apply w-128;
+        @apply w-140;
     }
 
     .mat-dialog-container {
         padding: 0 !important;
     }
 }
-.cards{
+.mat-card{
+    width: 13vw !important;
+    height: 13vh !important;
+}
+.mat-card-header-text{
+    margin: 0 !important;
+}
+.mat-card-header .mat-card-title {
+    font-size: 1rem !important;
+}
+.mat-card-title-group div{
+    margin-right: 25px !important;
+}
+.details {
+    display: flex;
+    width: 96%;
+    justify-content: space-between;
+}
+.cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    .card{
-        height: 250px;
-        margin: 20px;
+    .card {
+        height: 40vh;
+        border: 1px solid;
+        width: 26vw;
+        /* margin: -3px; */
         display: flex;
         flex-direction: column;
         background-color: #fff;
         border-radius: 10px;
         padding: 20px;
-        box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-        .info{
+        box-shadow: 0px 10px 15px -3px rgb(0 0 0 / 10%);
+        .info {
             display: flex;
             height: 90%;
-            .type{
+            flex-direction: column;
+            justify-content: center;
+            hr {
+                margin: 0;
+            }
+            p {
+                display: flex;
+                justify-content: space-between;
+            }
+            .type {
                 padding-right: 10px;
                 width: 100%;
-                h1{
+                h1 {
                     font-size: 1.2rem;
                 }
             }
-            .expiracion{
+            .expiracion {
                 display: flex;
                 align-items: center;
             }
-            .images{
-                display: flex;                
+            .images {
+                display: flex;
                 width: 50%;
                 padding-bottom: 20px;
-                img{
+                img {
                     width: 50%;
                     padding: 5px;
                     border-radius: 10px;
-                    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+                    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
                 }
             }
-            .movimiento{
-                display: flex;                
-                width: 90%;
+            .primero {
+                margin-top: 2vh;
+                margin-bottom: 2vh;
+            }
+            .history {
+                .firstpayment {
+                    border: 1px solid #d3cfcf;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+            }
+            .movimiento {
+                display: flex;
+                width: 100%;
                 padding-bottom: 20px;
+                justify-content: space-between;
             }
         }
     }

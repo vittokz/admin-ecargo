@@ -37,34 +37,37 @@
             </div>
         </ng-container>
     </div>
-    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
+    <!-- <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
         <ng-container *ngIf="data['id']">
-            <label> ID del pago: <span>{{ data.id }}</span></label>
+            <label class="details"> ID del pago: <span>{{ data.id }}</span></label>
+        </ng-container>
+    </div> -->
+    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
+        <ng-container *ngIf="data['servicio']">
+            <label class="details"> ID del servicio: <span>{{ data.servicio }}</span></label>
         </ng-container>
     </div>
-
-    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pb-1">
+    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 pr-4 sm:pr-2">
         <ng-container *ngIf="data['id']">                        
             <div class="flex flex-col items-center sm:items-start sm:mt-0 sm:pr-4  text-center sm:text-left">                
                 <mat-card class="example-card">
                     <mat-card-header>
                     <mat-card-title-group>
-                        <mat-card-title>Shiba Inu</mat-card-title>
-                        <mat-card-subtitle>Small</mat-card-subtitle>
+                        <mat-card-title>{{ data.usuario }}</mat-card-title>
+                        <mat-card-subtitle>Cliente</mat-card-subtitle>
                         <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
                     </mat-card-title-group>
                     </mat-card-header>
-                    <mat-card-content>
-                    {{longText}}
+                    <mat-card-content>                    
                     </mat-card-content>
                 </mat-card>
             </div>
             <div class="flex flex-col items-center sm:items-start sm:mt-0 sm:pr-4  text-center sm:text-left">                
                 <mat-card class="example-card">
-                    <mat-card-header>
+                    <mat-card-header style="margin: 0;">
                     <mat-card-title-group>
-                        <mat-card-title>Shiba Inu</mat-card-title>
-                        <mat-card-subtitle>Small</mat-card-subtitle>
+                        <mat-card-title>{{ data.conductor }}</mat-card-title>
+                        <mat-card-subtitle>Conductor</mat-card-subtitle>
                         <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
                     </mat-card-title-group>
                     </mat-card-header>
@@ -76,16 +79,12 @@
                 
         </ng-container>
     </div>
-    <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
-        <ng-container *ngIf="data['servicio']">
-            <label> ID del servicio: <span>{{ data.servicio }}</span></label>
-        </ng-container>
-    </div>
+    
     <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
         <ng-container *ngIf="data['total']">
             <label> Total: <span>{{ data.total | currency:'':'$':'1.0' }}</span></label>
         </ng-container>
-    </div>
+    </div>    
     <div class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-1 pl-8 sm:pl-8">
         <ng-container *ngIf="data['servicio']">
             <div class="cards">
@@ -102,42 +101,75 @@
                             <!-- <p *ngIf="item.expiry_date" class="expiracion"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="info"></mat-icon>  {{ item.expiry_date | date }}</p> -->
                             
                         </div>
+                        <div class="header">
+                            <p>Pedido</p>
+                            <p>{{ data.id }}</p>
+                        </div>
+                        <div class="header">
+                            <p>Metodo de Pago</p>
+                            <p>{{ data.Mpago }}</p>
+                        </div>
                         <div class="movimiento">
                             <p>Fecha de transaccion</p>
                             <p>{{ data.fecha }}</p>
                             <!-- <img src="{{ item.files[0] }}" (click)="verimagen(item, 1)">
                             <img src="{{ item.files[1] }}" (click)="verimagen(item, 2)"> -->
                         </div>
-                    </div>
+                        <hr>
+                        <div class="history">                        
+                            <div class="primero">
+                                <p>Fecha de transaccion <span>{{  myPayment[0].first_cuote['date'] }}</span></p>
+                                <p> Estado <span>Exitoso</span></p>
+                                <p>Cuota <span>{{ myPayment[0].first_cuote['cuote'] }}%</span></p>
+                                <div class="firstpayment">                                    
+                                    <p>Tarjeta: <span>{{ myPayment[0].first_cuote['amount'] | currency:'':'$':'1.0' }}</span></p>
+                                    <p>Cupon: <span>{{ myPayment[0].first_cuote['coupon'] | currency:'':'$':'1.0' }}</span></p>
+                                    <p>Billetera: <span>{{ myPayment[0].first_cuote['wallet'] | currency:'':'$':'1.0' }}</span></p>
+
+                                </div>
+                            </div>                            
+                            <ng-container>
+                                <p>Fecha de transaccion <span>{{  myPayment[0].second_cuote['date'] }}</span></p>
+                                <p> Estado <span>Exitoso</span></p>
+                                <p>Cuota <span>{{ myPayment[0].second_cuote['cuote'] }}%</span></p>
+                                <div class="firstpayment">                                    
+                                    <p>Tarjeta: <span>{{ myPayment[0].second_cuote['amount'] | currency:'':'$':'1.0' }}</span></p>
+                                    <p>Cupon: <span>{{ myPayment[0].second_cuote['coupon'] | currency:'':'$':'1.0' }}</span></p>
+                                    <p>Billetera: <span>{{ myPayment[0].second_cuote['wallet'] | currency:'':'$':'1.0' }}</span></p>
+
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>                                  
                 </div>
              </div>
         </ng-container>
     </div>
+<!-- Actions -->
+<ng-container *ngIf="data.actions.confirm.show || data.actions.cancel.show">
+    <div class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10">
 
-    <!-- Actions -->
-    <ng-container *ngIf="data.actions.confirm.show || data.actions.cancel.show">
-        <div class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10">
+        <!-- Cancel -->
+        <ng-container *ngIf="data.actions.cancel.show">
+            <button
+                mat-stroked-button
+                [matDialogClose]="'cancelled'">
+                {{data.actions.cancel.label}}
+            </button>
+        </ng-container>
 
-            <!-- Cancel -->
-            <ng-container *ngIf="data.actions.cancel.show">
-                <button
-                    mat-stroked-button
-                    [matDialogClose]="'cancelled'">
-                    {{data.actions.cancel.label}}
-                </button>
-            </ng-container>
+        <!-- Confirm -->
+        <ng-container *ngIf="data.actions.confirm.show">
+            <button
+                mat-flat-button
+                [color]="data.actions.confirm.color"
+                [matDialogClose]="'confirmed'">
+                {{data.actions.confirm.label}}
+            </button>
+        </ng-container>
 
-            <!-- Confirm -->
-            <ng-container *ngIf="data.actions.confirm.show">
-                <button
-                    mat-flat-button
-                    [color]="data.actions.confirm.color"
-                    [matDialogClose]="'confirmed'">
-                    {{data.actions.confirm.label}}
-                </button>
-            </ng-container>
-
-        </div>
-    </ng-container>
+    </div>
+</ng-container>
+    
 
 </div>
