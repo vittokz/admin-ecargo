@@ -77,6 +77,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         roles: [],
     },
     {
+        id: 'Ajustes del sistema',
+        title: 'Ajustes del Sistema',
+        subtitle: '',
+        type: 'basic',
+        icon: 'heroicons_outline:cog',
+        link: '/ajustes-sistema',
+        roles: [],
+    },
+    {
         id: 'reportes',
         title: 'Reportes',
         subtitle: '',

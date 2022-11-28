@@ -17,6 +17,7 @@ import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/di
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 import { DialogEditarCuponComponent } from './dialog-editar-cupon/dialog-editar-cupon.component';
 import { DialogDetailsPayment } from './dialog-payment/dialog-payment.component';
+import { DialogEditarVehicleComponent } from './dialog-editar-vehiculo/dialog-editar-vehicle.component';
 
 @Injectable()
 export class FuseConfirmationService {
@@ -266,6 +267,28 @@ export class FuseConfirmationService {
             panelClass: 'fuse-confirmation-dialog-panel',
             height: '400px',
             width: '600px',
+        });
+    }
+
+     //editar vehiculo
+     openDialogEditarVehiculo(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogEditarVehicleComponent> {
+        this.crearConfiguracionDialog(
+            'Editar Vehiculo',
+            'heroicons_outline:pencil'
+        );
+        const userConfig = merge({}, this._defaultConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogEditarVehicleComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+            height: '700px',
+            width: '800px',
         });
     }
 
