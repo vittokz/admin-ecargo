@@ -53,7 +53,7 @@
                                 ></mat-icon>
                             </button>
                             <mat-menu #summaryVehiculos="matMenu">
-                                <button mat-menu-item>Ir a vehiculos</button>
+                                <button (click)="irVehiculos()" mat-menu-item>Ir a vehiculos</button>
                             </mat-menu>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                 ></mat-icon>
                             </button>
                             <mat-menu #summaryUsuarios="matMenu">
-                                <button mat-menu-item>Ir a tipos de carga</button>
+                                <button (click)="irTiposCarga()" mat-menu-item>Ir a tipos de carga</button>
                             </mat-menu>
                         </div>
                     </div>
