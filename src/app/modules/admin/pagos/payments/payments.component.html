@@ -1,0 +1,238 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="border-2 border-2 border-gray-300 rounded-2xl">
+            <div class="content-billetera m-5">
+                <h1 class="content-billetera__title">
+                    Lista de Movimientos y Pagos Realizados
+                </h1>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0">
+                    <!-- Summary -->
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <div class="flex items-start justify-between">
+                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Total de Pagos</div>
+                        </div>
+                        <div class="flex flex-col items-center mt-2">
+                            <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">{{ misPagos.length }}</div>
+                            <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                <div class="text-md font-medium truncate">Cantidad total</div>
+                                <div class="ml-1.5 text-lg font-semibold"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Overdue -->
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <div class="flex items-start justify-between">
+                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Pagos Exitosos</div>                            
+                        </div>
+                        <div class="flex flex-col items-center mt-2">
+                            <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">{{ indPagosE }} | {{ porPagosE }}%</div>                            
+                            <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                <div class="text-md font-medium truncate">Cantidad total | Porcentaje</div>
+                                <div class="ml-1.5 text-lg font-semibold"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Issues -->
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <div class="flex items-start justify-between">
+                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Pagos Declinados</div>                        
+                        </div>
+                        <div class="flex flex-col items-center mt-2">
+                            <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">{{ indPagosD }}</div>
+                            <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                <div class="text-md font-medium truncate">Cantidad total</div>
+                                <div class="ml-1.5 text-lg font-semibold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+                           <!--DATA TABLE BILLETERA-->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0 pt-2">
+            
+                <mat-form-field appearance="fill">
+                    <mat-label>Buscar</mat-label>
+                    <input
+                        matInput
+                        (keyup)="applyFilter($event)"
+                        placeholder=""
+                        #input
+                    />
+                </mat-form-field> 
+                <mat-form-field appearance="fill">
+                    <mat-label>Filtrar por fecha</mat-label>
+                    <mat-select [(value)]="selected">
+                    <mat-option value="option0" (click)="cargarPayments()">Todos</mat-option>
+                    <mat-option value="option1" (click)="filterXdia()">Dia</mat-option>
+                    <mat-option value="option2" (click)="filterXmes()">Mes</mat-option>
+                    <mat-option value="option3" (click)="filterXanio()">Año</mat-option>
+                    </mat-select>
+                </mat-form-field>                                 
+                
+                <mat-form-field appearance="fill">
+                    <mat-label>Filtra por rango de fecha</mat-label>
+                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                      <input matStartDate formControlName="start" placeholder="Start date">
+                      <input matEndDate formControlName="end" placeholder="End date" >
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker>
+                        <mat-date-range-picker-actions>
+                            <button mat-button matDateRangePickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDateRangePickerApply (click)="newRange(range.value)">Apply</button>
+                        </mat-date-range-picker-actions>
+                    </mat-date-range-picker>
+                  
+                    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+                </mat-form-field>                   
+
+            </div>             
+            <div class="scroll mat-elevation-z8">
+
+                <table mat-table [dataSource]="dataSource" matSort *ngIf="!loading">
+                     
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="fecha">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Fecha
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                           {{ row.fecha }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="usuario">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Usuario
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.usuario }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="conductor">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Conductor
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.conductor }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Total
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.total | currency:'':'$':'1.0'}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cuota">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Cuota
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.cuota }}%
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Mpago">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            Metodo de pago
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.Mpago }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            ESTADO
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <div *ngIf="row.estado===2" >
+                                <mat-icon class="icon-stylo-check" matTooltip="Pago"
+                                matTooltipPosition="left" svgIcon="check"></mat-icon>
+                            </div>
+                            <div *ngIf="row.estado===1" >
+                                <mat-icon class="icon-stylo-inactivo" matTooltip=""
+                                matTooltipPosition="left" svgIcon="close"></mat-icon>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                        >
+                            ACCIONES
+                        </th>
+                        <td mat-cell *matCellDef="let row">                            
+                            <button
+                                matTooltip="Ver movimientos"
+                                matTooltipPosition="left"
+                                mat-raised-button
+                                class="btn-stylo-historial" 
+                                (click)="verDetallePayment(row)"                               
+                            >
+                                <mat-icon
+                                    class="icon-stylo-historial"
+                                    [svgIcon]="'heroicons_outline:eye'"
+                                ></mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                    ></tr>
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">
+                            No data matching the filter "{{ input.value }}"
+                        </td>
+                    </tr>
+                </table>
+
+                <mat-paginator
+                    [pageSize]="10" 
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    aria-label="Select page of misPagos"
+                ></mat-paginator>
+                <mat-spinner class="spinner" *ngIf="loading"></mat-spinner>
+            </div>
+            </div>
+ 
+        
+        </div>
+    </div>
+</div>

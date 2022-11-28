@@ -17,10 +17,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DataTableComponent } from './components/services/data-table/data-table.component';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
     imports: [
         CommonModule,
@@ -43,7 +46,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         NgApexchartsModule,
         MatRadioModule,
         MatSelectModule,
-        MatDividerModule
+        MatDividerModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatChipsModule
     ],
     exports: [
         CommonModule,
@@ -67,7 +74,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         NgApexchartsModule,
         MatRadioModule,
         MatSelectModule,
-        MatDividerModule
+        MatDividerModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatChipsModule
     ],
     declarations: [
     DataTableComponent
