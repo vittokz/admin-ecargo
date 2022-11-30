@@ -59,7 +59,6 @@ export class VehiculosComponent implements OnInit {
       });
       this.dataSource = new MatTableDataSource(this.infoAjustes[0].vehicles_list);
       this.dataSource.paginator = this.paginator;
-      console.log('vehicle',this.infoAjustes[0].vehicles_list);
   });
   }
 

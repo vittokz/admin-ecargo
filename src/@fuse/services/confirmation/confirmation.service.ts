@@ -17,6 +17,7 @@ import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/di
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 import { DialogEditarCuponComponent } from './dialog-editar-cupon/dialog-editar-cupon.component';
 import { DialogEditarVehicleComponent } from './dialog-editar-vehiculo/dialog-editar-vehicle.component';
+import { DialogEditarTipoCargaComponent } from './dialog-editar-tipo-carga/dialog-editar-tipo-carga.component';
 
 @Injectable()
 export class FuseConfirmationService {
@@ -267,6 +268,28 @@ export class FuseConfirmationService {
 
         // Open the dialog
         return this._matDialog.open(DialogEditarVehicleComponent, {
+            autoFocus: false,
+            disableClose: !userConfig.dismissible,
+            data: userConfig,
+            panelClass: 'fuse-confirmation-dialog-panel',
+            height: '700px',
+            width: '800px',
+        });
+    }
+
+    //editar tipo de carga
+    openDialogEditarTipoCarga(
+        config: IUser,
+        tipoAccion: string
+    ): MatDialogRef<DialogEditarTipoCargaComponent> {
+        this.crearConfiguracionDialog(
+            'Editar Tipo Carga',
+            'heroicons_outline:pencil'
+        );
+        const userConfig = merge({}, this._defaultConfig, config);
+
+        // Open the dialog
+        return this._matDialog.open(DialogEditarTipoCargaComponent, {
             autoFocus: false,
             disableClose: !userConfig.dismissible,
             data: userConfig,

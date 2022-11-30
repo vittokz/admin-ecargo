@@ -29,6 +29,7 @@ import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/di
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 import { DialogEditarCuponComponent } from './dialog-editar-cupon/dialog-editar-cupon.component';
 import { DialogEditarVehicleComponent } from './dialog-editar-vehiculo/dialog-editar-vehicle.component';
+import { DialogEditarTipoCargaComponent } from './dialog-editar-tipo-carga/dialog-editar-tipo-carga.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { DialogEditarVehicleComponent } from './dialog-editar-vehiculo/dialog-ed
         DialogMovimientosWalletComponent,
         DialogDetalleServiceMovimientoComponent,
         DialogEditarCuponComponent,
-        DialogEditarVehicleComponent
+        DialogEditarVehicleComponent,
+        DialogEditarTipoCargaComponent
     ],
     imports     : [
         MatButtonModule,
