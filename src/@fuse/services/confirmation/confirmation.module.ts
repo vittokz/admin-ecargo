@@ -28,6 +28,7 @@ import { DialogEditarWalletComponent } from './dialog-editar-wallet/dialog-edita
 import { DialogMovimientosWalletComponent } from './dialog-movimientos-wallet/dialog-movimientos-wallet.component';
 import { DialogDetalleServiceMovimientoComponent } from './dialog-detalle-service-movimiento/dialog-detalle-service-movimiento.component';
 import { DialogEditarCuponComponent } from './dialog-editar-cupon/dialog-editar-cupon.component';
+import { DialogDetailsPayment } from './dialog-payment/dialog-payment.component';
 import { DialogEditarVehicleComponent } from './dialog-editar-vehiculo/dialog-editar-vehicle.component';
 import { DialogEditarTipoCargaComponent } from './dialog-editar-tipo-carga/dialog-editar-tipo-carga.component';
 
@@ -48,7 +49,9 @@ import { DialogEditarTipoCargaComponent } from './dialog-editar-tipo-carga/dialo
         DialogDetalleServiceMovimientoComponent,
         DialogEditarCuponComponent,
         DialogEditarVehicleComponent,
-        DialogEditarTipoCargaComponent
+        DialogEditarTipoCargaComponent,
+        DialogDetailsPayment,
+        DialogEditarVehicleComponent
     ],
     imports     : [
         MatButtonModule,
